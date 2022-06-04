@@ -27,11 +27,10 @@ public class RagdollHandler : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            EnableRagdoll();
-        }
-        else if (Input.GetKeyUp("space"))
-        {
-            DisableRagdoll();
+            if (!isRagdoll)
+                EnableRagdoll();
+            else
+                DisableRagdoll();
         }
     }
 
@@ -68,7 +67,8 @@ public class RagdollHandler : MonoBehaviour
     private void DisableRagdoll()
     {
         isRagdoll = false;
-        transform.position = refTransform.position;
+        // keep z axis constant cuz 2D
+        transform.position = new Vector3 (refTransform.position.x, refTransform.position.y, transform.position.z);
         foreach (Collider c in allColliders)
         {
             if (c.gameObject != gameObject)
