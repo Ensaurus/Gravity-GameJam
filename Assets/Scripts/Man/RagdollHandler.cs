@@ -4,23 +4,29 @@ using UnityEngine;
 
 public class RagdollHandler : MonoBehaviour
 {
-    Collider[] ragdollParts;
+    Collider[] allColliders;
+    Rigidbody[] allRigidBodies;
+    Animator myAnim;
+    // body part in ragdoll used as reference point for snapping parent back into place
+    public Transform refTransform;
 
     // Start is called before the first frame update
     void Start()
     {
-        ragdollParts = gameObject.GetComponentsInChildren<Collider>();
+        allColliders = gameObject.GetComponentsInChildren<Collider>();
+        myAnim = gameObject.GetComponent<Animator>();
+        allRigidBodies = gameObject.GetComponentsInChildren<Rigidbody>();
         DisableRagdoll();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetButtonDown("space"))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             EnableRagdoll();
         }
-        else if (Input.GetButtonUp("space"))
+        else if (Input.GetKeyUp("space"))
         {
             DisableRagdoll();
         }
@@ -28,17 +34,60 @@ public class RagdollHandler : MonoBehaviour
 
     private void EnableRagdoll()
     {
-        foreach (Collider c in ragdollParts)
+        foreach (Collider c in allColliders)
         {
-            c.enabled = true;
+            if (c.gameObject != gameObject)
+            {
+                c.enabled = true;
+            }
+            else
+            {
+                c.enabled = false;
+            }
         }
+        foreach (Rigidbody r in allRigidBodies)
+        {
+            if (r.gameObject != gameObject)
+            {
+                r.isKinematic = false;
+                r.detectCollisions = true;
+            }
+            else
+            {
+                r.isKinematic = true;
+                r.detectCollisions = false;
+            }
+        }
+        myAnim.enabled = false;
     }
 
     private void DisableRagdoll()
     {
-        foreach (Collider c in ragdollParts)
+        transform.position = refTransform.position;
+        foreach (Collider c in allColliders)
         {
-            c.enabled = false;
+            if (c.gameObject != gameObject)
+            {
+                c.enabled = false;
+            }
+            else
+            {
+                c.enabled = true;
+            }
         }
+        foreach (Rigidbody r in allRigidBodies)
+        {
+            if (r.gameObject != gameObject)
+            {
+                r.isKinematic = true;
+                r.detectCollisions = false;
+            }
+            else
+            {
+                r.isKinematic = false;
+                r.detectCollisions = true;
+            }
+        }
+        myAnim.enabled = true;
     }
 }

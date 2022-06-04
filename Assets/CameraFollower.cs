@@ -5,16 +5,13 @@ using UnityEngine;
 public class CameraFollower : MonoBehaviour
 {
     public Transform target;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+
+
 
     // Update is called once per frame
     void Update()
     {
-        transform.position = new Vector3(target.position.x, target.position.y + 4, target.position.z - 5);
+        transform.position = new Vector3(transform.position.x, target.position.y, target.position.z);
         transform.LookAt(target);
     }
 }
