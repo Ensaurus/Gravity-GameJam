@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class ProceduralLeve : MonoBehaviour
+public class ProceduralLevel : MonoBehaviour
 {
 
     public int maxObjects = 100;
