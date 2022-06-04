@@ -7,7 +7,7 @@ public class CharacterMovement : MonoBehaviour
 
     Animator _animator;
 
-    private int _animState = 0;
+    private int _moveDirection = 0;
     // Start is called before the first frame update
     void Start()
     {
@@ -19,37 +19,34 @@ public class CharacterMovement : MonoBehaviour
     {
         Vector3 targetDirection = Vector3.zero;
         bool isMoving = false;
+        _animator.SetBool("IsRunning", false);
         if (Input.GetKey(KeyCode.D))
         {
-            targetDirection = Vector3.right;
+            targetDirection.x = 1;
             _animator.SetBool("IsRunning", true);
             isMoving = true;
         } else if (Input.GetKey(KeyCode.A))
         {
-            targetDirection = Vector3.left;
+            targetDirection.x = -1;
             _animator.SetBool("IsRunning", true);
             isMoving = true;
-        } else if (Input.GetKey(KeyCode.W))
+        }
+        if (Input.GetKey(KeyCode.W))
         {
-            targetDirection = Vector3.forward;
+            targetDirection.z = 1;
             _animator.SetBool("IsRunning", true);
             isMoving = true;
         } else if (Input.GetKey(KeyCode.S))
         {
-            targetDirection = Vector3.back;
+            targetDirection.z = -1;
             _animator.SetBool("IsRunning", true);
             isMoving = true;
         }
-        else
-        {
-            _animator.SetBool("IsRunning", false);
-            _animState = 0;
-            isMoving = false;
-        }
 
-        Vector3 finalDirection = Vector3.RotateTowards(transform.forward, targetDirection, Time.deltaTime * 5.0f, 0.0f);
+        Vector3 finalDirection = Vector3.RotateTowards(transform.forward, targetDirection,
+            Time.deltaTime * 20.0f, 0.0f);
         transform.rotation = Quaternion.LookRotation(finalDirection);
         if (isMoving)
-            transform.Translate(transform.forward * Time.deltaTime);
+            transform.Translate(targetDirection * (Time.deltaTime * 5.0f), Space.World);
     }
 }
