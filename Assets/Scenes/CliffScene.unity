@@ -643,6 +643,7 @@ GameObject:
   - component: {fileID: 913433066}
   - component: {fileID: 913433065}
   - component: {fileID: 913433064}
+  - component: {fileID: 913433067}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -716,7 +717,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
-<<<<<<< Updated upstream
 --- !u!114 &913433067
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -797,8 +797,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-=======
->>>>>>> Stashed changes
 --- !u!1001 &1327557123
 PrefabInstance:
   m_ObjectHideFlags: 0
