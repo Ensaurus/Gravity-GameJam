@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.UI;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -26,6 +27,7 @@ public class ProceduralLevel : MonoBehaviour
         GameObject newObject = Instantiate(cliffObjects[Random.Range(0, cliffObjects.Length)], 
             newSpawnPos,
             Quaternion.identity);
+        newObject.transform.SetParent(transform);
         newObject.AddComponent<MeshCollider>();
         //newObject.transform.LookAt(new Vector3(position.x, newObject.transform.position.y, position.z));
         //newObject.transform.localScale = Vector3.one * sparsity;
@@ -68,6 +70,7 @@ public class ProceduralLevel : MonoBehaviour
                 spawnPos,
                 Quaternion.identity);
             newObject.AddComponent<MeshCollider>();
+            newObject.transform.SetParent(transform);
             newObject.transform.rotation = Quaternion.Euler(-90f, 0f, 0f);
        
             // whyyyyyy
