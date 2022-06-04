@@ -26,9 +26,11 @@ public class ProceduralLeve : MonoBehaviour
         GameObject newObject = Instantiate(cliffObjects[Random.Range(0, cliffObjects.Length)], 
             newSpawnPos,
             Quaternion.identity);
-        newObject.transform.LookAt(new Vector3(position.x, newObject.transform.position.y, position.z));
+        newObject.AddComponent<MeshCollider>();
+        //newObject.transform.LookAt(new Vector3(position.x, newObject.transform.position.y, position.z));
         //newObject.transform.localScale = Vector3.one * sparsity;
         //newObject.transform.rotation = Random.rotation;
+        newObject.transform.rotation = Quaternion.Euler(-90, 0, 0);
         spawnedObjects.Add(newObject);
     }
     
