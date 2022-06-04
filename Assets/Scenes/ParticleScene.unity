@@ -178,6 +178,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: HumanMale_Character_FREE
       objectReference: {fileID: 0}
+    - target: {fileID: 1971432061743733188, guid: 60770bdb4dc667c45bea53db0339dc05, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1971432061743733188, guid: 60770bdb4dc667c45bea53db0339dc05, type: 3}
+      propertyPath: InitialModule.startSpeed.scalar
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1971432061743733188, guid: 60770bdb4dc667c45bea53db0339dc05, type: 3}
+      propertyPath: InitialModule.startSize.minScalar
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1971432061743733188, guid: 60770bdb4dc667c45bea53db0339dc05, type: 3}
+      propertyPath: InitialModule.startSpeed.minScalar
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 3242882747939926295, guid: 60770bdb4dc667c45bea53db0339dc05, type: 3}
       propertyPath: m_LocalRotation.w
       value: 0.98558897
@@ -459,7 +475,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 1732695218}
-  maxSpeed: 10
+  maxSpeed: 40
 --- !u!4 &2033132327 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8168219377970590564, guid: 60770bdb4dc667c45bea53db0339dc05, type: 3}
