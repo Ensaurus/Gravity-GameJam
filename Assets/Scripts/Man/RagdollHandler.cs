@@ -9,6 +9,9 @@ public class RagdollHandler : MonoBehaviour
     Animator myAnim;
     // body part in ragdoll used as reference point for snapping parent back into place
     public Transform refTransform;
+    private bool isRagdoll;
+    public bool IsRagdoll { get { return isRagdoll; }
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -34,6 +37,7 @@ public class RagdollHandler : MonoBehaviour
 
     private void EnableRagdoll()
     {
+        isRagdoll = true;
         foreach (Collider c in allColliders)
         {
             if (c.gameObject != gameObject)
@@ -63,6 +67,7 @@ public class RagdollHandler : MonoBehaviour
 
     private void DisableRagdoll()
     {
+        isRagdoll = false;
         transform.position = refTransform.position;
         foreach (Collider c in allColliders)
         {
