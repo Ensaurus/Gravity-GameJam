@@ -17,8 +17,8 @@ public class ProceduralLevel : MonoBehaviour
         var position = playerTransform.position;
         float newSpawnY = Random.Range(ymin, ymax);
         float sparsity = (-(newSpawnY - startY) + 100f) * 0.01f;
-        float newSpawnPosX = Random.Range(position.x-(20.0f * sparsity), 
-            position.x + (20.0f * sparsity));
+        float newSpawnPosX = Random.Range(position.x-(50.0f * sparsity), 
+            position.x + (50.0f * sparsity));
         Vector3 newSpawnPos = new Vector3(newSpawnPosX, newSpawnY, position.z);
         
         //point towards center
@@ -30,7 +30,12 @@ public class ProceduralLevel : MonoBehaviour
         //newObject.transform.LookAt(new Vector3(position.x, newObject.transform.position.y, position.z));
         //newObject.transform.localScale = Vector3.one * sparsity;
         //newObject.transform.rotation = Random.rotation;
-        newObject.transform.rotation = Quaternion.Euler(-90, 0, 0);
+        newObject.transform.rotation = Quaternion.Euler(-90f, 0f, 0f);
+       
+        // whyyyyyy
+        if (Random.value > 0.5)
+            newObject.transform.localScale = new Vector3(-100f, 100f, 100f);
+        
         spawnedObjects.Add(newObject);
     }
     
