@@ -38,7 +38,7 @@ public class ProceduralLevel : MonoBehaviour
         
         spawnedObjects.Add(newObject);
     }
-    
+
     // Start is called before the first frame update
     void Start()
     {
@@ -47,6 +47,34 @@ public class ProceduralLevel : MonoBehaviour
         while (spawnedObjects.Count < maxObjects)
         {
             SpawnObject(position.y - 150, position.y - 50, 1.0f);
+        }
+    }
+
+    void SpawnInBox(float xmin, float xmax, float ymin, float ymax, float sparsity)
+    {
+        if (spawnedObjects.Count > 0)
+        {
+            for (int i = spawnedObjects.Count; i >= 0; i++)
+            {
+                Destroy(spawnedObjects[i]);
+                spawnedObjects.RemoveAt(i);
+            }
+        }
+
+        while (spawnedObjects.Count < (maxObjects * sparsity))
+        {
+            Vector3 spawnPos = new Vector3(Random.Range(xmin, xmax), Random.Range(ymin, ymax), 0f);
+            GameObject newObject = Instantiate(cliffObjects[Random.Range(0, cliffObjects.Length)], 
+                spawnPos,
+                Quaternion.identity);
+            newObject.AddComponent<MeshCollider>();
+            newObject.transform.rotation = Quaternion.Euler(-90f, 0f, 0f);
+       
+            // whyyyyyy
+            if (Random.value > 0.5)
+                newObject.transform.localScale = new Vector3(-100f, 100f, 100f);
+        
+            spawnedObjects.Add(newObject);
         }
     }
 
