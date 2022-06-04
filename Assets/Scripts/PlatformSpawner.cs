@@ -28,7 +28,8 @@ public class PlatformSpawner : MonoBehaviour
 
     private void SpawnPlatform()
     {
-        Instantiate(platform);
-        platform.transform.position = new Vector3(playerTransform.position.x, playerTransform.position.y - spawnDistance, playerTransform.position.z);
+        Instantiate(platform, new Vector3(playerTransform.position.x, playerTransform.position.y - spawnDistance, playerTransform.position.z), Quaternion.Euler(-90, 0, 0));
+        // Instantiate(platform);
+        // platform.transform.position = new Vector3(playerTransform.position.x, playerTransform.position.y - spawnDistance, playerTransform.position.z);
     }
 }
