@@ -63,9 +63,26 @@ public class ProceduralLevel : MonoBehaviour
             }
         }
 
-        while (spawnedObjects.Count < (maxObjects * sparsity))
+        /*while (spawnedObjects.Count < (maxObjects * sparsity))
         {
             Vector3 spawnPos = new Vector3(Random.Range(xmin, xmax), Random.Range(ymin, ymax), 0f);
+            GameObject newObject = Instantiate(cliffObjects[Random.Range(0, cliffObjects.Length)], 
+                spawnPos,
+                Quaternion.identity);
+            newObject.AddComponent<MeshCollider>();
+            newObject.transform.SetParent(transform);
+            newObject.transform.rotation = Quaternion.Euler(-90f, 0f, 0f);
+       
+            // whyyyyyy
+            if (Random.value > 0.5)
+                newObject.transform.localScale = new Vector3(-100f, 100f, 100f);
+        
+            spawnedObjects.Add(newObject);
+        }*/
+        UniformPoissonDiskSampler sampler = new UniformPoissonDiskSampler(xmax - xmin, ymax - ymin, 20);
+        foreach (var sample in sampler.Samples())
+        {
+            Vector3 spawnPos = new Vector3(sample.x + xmin, sample.y + ymin, 0f);
             GameObject newObject = Instantiate(cliffObjects[Random.Range(0, cliffObjects.Length)], 
                 spawnPos,
                 Quaternion.identity);
