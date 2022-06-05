@@ -27,7 +27,6 @@ public class SeagullBehavior : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(state);
         if (state == 0)
         {
             transform.Translate(0, 0, -Time.deltaTime * speed, Space.World);
