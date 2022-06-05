@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class PlatformController : MonoBehaviour
 {
@@ -8,9 +9,11 @@ public class PlatformController : MonoBehaviour
 
     private bool spawnedBeforeGame;
 
+    public UnityEvent playerCollidedWithStarterPlatform;
+
     private void Start()
     {
-        spawnedBeforeGame = PlayerBounding.instance.boundIsActive;
+        spawnedBeforeGame = !PlayerBounding.instance.boundIsActive;
         PlayerBounding.instance.SwitchedActiveTile.AddListener(SwitchTileHandler);
         PlayerBounding.instance.FirstUpwardShift.AddListener(FirstShiftHandler);
     }
@@ -37,8 +40,20 @@ public class PlatformController : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player" && activeCoroutine == null)
         {
-            activeCoroutine = StartCoroutine(MoveAway());
+            if (!spawnedBeforeGame)
+            {
+                activeCoroutine = StartCoroutine(MoveAway());
+            }
+            else
+            {
+                playerCollidedWithStarterPlatform.Invoke();
+            }
         }
+    }
+
+    public void StartMoving()
+    {
+        activeCoroutine = StartCoroutine(MoveAway());
     }
 
     IEnumerator MoveAway()

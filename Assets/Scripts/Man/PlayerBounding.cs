@@ -37,6 +37,7 @@ public class PlayerBounding : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
+        boundIsActive = false;
         instance = this;
         upperBound = upperBoundTransform.position.y;
         lowerBound = lowerBoundTransform.position.y;
