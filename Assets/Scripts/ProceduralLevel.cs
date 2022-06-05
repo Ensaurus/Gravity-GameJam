@@ -14,6 +14,8 @@ public class ProceduralLevel : MonoBehaviour
     // public GameObject[] cliffObjects;
     private List<GameObject> spawnedObjects = new List<GameObject>();
     private float playerStartYPos = 0.0f;
+    private float lastSpawnTime = 0f;
+    private float seagullRandomSpawnTime;
 
     private PoolAnArray cliffObjectsPool;
 
@@ -62,6 +64,7 @@ public class ProceduralLevel : MonoBehaviour
             lowerBoundTransform.position.y,
             upperBoundTransform.position.y);
         PlayerBounding.instance.SwitchedActiveTile.AddListener(SwitchedTileListener);
+        seagullRandomSpawnTime = Random.Range(1f, 3f);
         /*
         var position = playerTransform.position;
         playerStartYPos = position.y;
@@ -120,46 +123,17 @@ public class ProceduralLevel : MonoBehaviour
             newObject.SetActive(true);
             spawnedObjects.Add(newObject);
         }
-
-        for(int i=0; i< seagullSpawnAttempts; i++)
-        {
-            if (Random.value > 0.3)
-            {
-                Instantiate(seagull, new Vector3(0, Random.Range(ymin, ymax), 0), Quaternion.identity, transform);
-            }
-        }
     }
 
-    /*
-    // Update is called once per frame
     void Update()
     {
-        
-        var position = playerTransform.position;
-
-        List<GameObject> objToRemove = new List<GameObject>();
-        // remove objects out of range
-        foreach (var obj in spawnedObjects)
+        if (Time.unscaledTime > lastSpawnTime + seagullRandomSpawnTime)
         {
-            if (obj.transform.position.y > playerTransform.position.y + 50)
-            {
-                objToRemove.Add(obj);
-            }
-        }
-        foreach (var obj in objToRemove)
-        {
-            Destroy(obj);
-            spawnedObjects.Remove(obj);
-        }
-        
-        // spawn in some new objects
-        if (spawnedObjects.Count < maxObjects)
-        {
-            while (spawnedObjects.Count < maxObjects)
-            {
-                SpawnObject(position.y - 100, position.y - 50, playerStartYPos);
-            }
+            Instantiate(seagull, new Vector3(0, 
+                    Random.Range(lowerBoundTransform.position.y, upperBoundTransform.position.y), 0), 
+                Quaternion.identity, transform);
+            seagullRandomSpawnTime = Random.Range(5f, 10f);
+            lastSpawnTime = Time.unscaledTime;
         }
     }
-    */
 }
