@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.6196745, g: 0.92157805, b: 0.9758052, a: 1}
+  m_IndirectSpecularColor: {r: 0.6196751, g: 0.92157906, b: 0.9758063, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -7147,6 +7147,7 @@ MonoBehaviour:
   maxObjects: 100
   playerTransform: {fileID: 1917331363}
   spawnRadius: 0
+  seagull: {fileID: 0}
   upperBoundTransform: {fileID: 0}
   lowerBoundTransform: {fileID: 0}
   leftBoundTransform: {fileID: 0}
@@ -7891,6 +7892,10 @@ PrefabInstance:
       value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 7338722968301452388, guid: 29c2412c9dd7e4b31a1370261ddccc8f, type: 3}
+      propertyPath: seagull
+      value: 
+      objectReference: {fileID: 6366588515260221070, guid: 4812f764678c9d14f833bd68d83c08d3, type: 3}
+    - target: {fileID: 7338722968301452388, guid: 29c2412c9dd7e4b31a1370261ddccc8f, type: 3}
       propertyPath: playerTransform
       value: 
       objectReference: {fileID: 1917331363}
@@ -7898,6 +7903,10 @@ PrefabInstance:
       propertyPath: offset
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 7338722968320804099, guid: 29c2412c9dd7e4b31a1370261ddccc8f, type: 3}
+      propertyPath: seagull
+      value: 
+      objectReference: {fileID: 6366588515260221070, guid: 4812f764678c9d14f833bd68d83c08d3, type: 3}
     - target: {fileID: 7338722968320804099, guid: 29c2412c9dd7e4b31a1370261ddccc8f, type: 3}
       propertyPath: playerTransform
       value: 
@@ -7906,6 +7915,10 @@ PrefabInstance:
       propertyPath: offset
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 7338722968411162158, guid: 29c2412c9dd7e4b31a1370261ddccc8f, type: 3}
+      propertyPath: seagull
+      value: 
+      objectReference: {fileID: 6366588515260221070, guid: 4812f764678c9d14f833bd68d83c08d3, type: 3}
     - target: {fileID: 7338722968411162158, guid: 29c2412c9dd7e4b31a1370261ddccc8f, type: 3}
       propertyPath: playerTransform
       value: 
@@ -7914,6 +7927,10 @@ PrefabInstance:
       propertyPath: offset
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 7338722968632400636, guid: 29c2412c9dd7e4b31a1370261ddccc8f, type: 3}
+      propertyPath: seagull
+      value: 
+      objectReference: {fileID: 6366588515260221070, guid: 4812f764678c9d14f833bd68d83c08d3, type: 3}
     - target: {fileID: 7338722968632400636, guid: 29c2412c9dd7e4b31a1370261ddccc8f, type: 3}
       propertyPath: playerTransform
       value: 
@@ -7922,6 +7939,10 @@ PrefabInstance:
       propertyPath: offset
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 8880941308054809279, guid: 29c2412c9dd7e4b31a1370261ddccc8f, type: 3}
+      propertyPath: seagull
+      value: 
+      objectReference: {fileID: 6366588515260221070, guid: 4812f764678c9d14f833bd68d83c08d3, type: 3}
     - target: {fileID: 8880941308054809279, guid: 29c2412c9dd7e4b31a1370261ddccc8f, type: 3}
       propertyPath: playerTransform
       value: 

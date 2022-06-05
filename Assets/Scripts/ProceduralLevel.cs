@@ -9,6 +9,8 @@ public class ProceduralLevel : MonoBehaviour
     public int maxObjects = 100;
     public Transform playerTransform;
     public float spawnRadius = 10;
+
+    public GameObject seagull;
     // public GameObject[] cliffObjects;
     private List<GameObject> spawnedObjects = new List<GameObject>();
     private float playerStartYPos = 0.0f;
@@ -115,6 +117,11 @@ public class ProceduralLevel : MonoBehaviour
                 newObject.transform.localScale = new Vector3(-newObject.transform.localScale.x, newObject.transform.localScale.y, newObject.transform.localScale.z);
             newObject.SetActive(true);
             spawnedObjects.Add(newObject);
+        }
+
+        if (Random.value > 0.3)
+        {
+            Instantiate(seagull, transform);
         }
     }
 

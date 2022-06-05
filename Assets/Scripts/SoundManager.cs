@@ -37,7 +37,6 @@ public class SoundManager : MonoBehaviour
         float velocity = personRigidbody.velocity.magnitude;
         float targetVolume = 0f;
         float currentVolume = _sources[0].volume;
-        Debug.Log(velocity);
         if (velocity <= 20f)
         {
             targetVolume = 0f;
