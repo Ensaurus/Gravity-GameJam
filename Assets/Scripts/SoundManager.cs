@@ -1,16 +1,33 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class SoundManager : MonoBehaviour
 {
+    public static SoundManager instance { get; private set; }
+    
     private AudioSource[] _sources;
     public AudioClip windSound;
     public AudioClip fireSound;
     public AudioClip fireStartSound;
+    public AudioClip explosionSound;
     public AudioClip[] collisionSounds;
     public Rigidbody personRigidbody;
     private bool hasStartedOnFire = false;
+
+
+    private void Awake()
+    {
+        if (instance != null && instance != this) 
+        { 
+            Destroy(this); 
+        } 
+        else 
+        { 
+            instance = this; 
+        }
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -31,13 +48,19 @@ public class SoundManager : MonoBehaviour
         _sources[1].loop = true;
     }
 
+    public void Explode()
+    { 
+        //_sources[0].Stop();
+        //_sources[1].Stop();
+        _sources[2].clip = explosionSound;
+        _sources[2].Play();
+    }
+    
     // Update is called once per frame
     void Update()
     {
         float velocity = personRigidbody.velocity.magnitude;
         float targetVolume = 0f;
-        float currentVolume = _sources[0].volume;
-        Debug.Log(velocity);
         if (velocity <= 20f)
         {
             targetVolume = 0f;
@@ -76,4 +99,6 @@ public class SoundManager : MonoBehaviour
             _source.volume = targetVolume;
         }*/
     }
+    
+    
 }

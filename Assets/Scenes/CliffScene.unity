@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.6196753, g: 0.92157906, b: 0.97580653, a: 1}
+  m_IndirectSpecularColor: {r: 0.6196751, g: 0.92157906, b: 0.9758063, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1341,6 +1341,22 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 5465374654265698524, guid: 60770bdb4dc667c45bea53db0339dc05, type: 3}
+      propertyPath: InitialModule.startSpeed.scalar
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5465374654265698524, guid: 60770bdb4dc667c45bea53db0339dc05, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5465374654265698524, guid: 60770bdb4dc667c45bea53db0339dc05, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.g
+      value: 0.20312813
+      objectReference: {fileID: 0}
+    - target: {fileID: 5465374654265698524, guid: 60770bdb4dc667c45bea53db0339dc05, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5483428962773182988, guid: 60770bdb4dc667c45bea53db0339dc05, type: 3}
       propertyPath: m_Layer
       value: 3
@@ -1630,6 +1646,56 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   frozenAxis: 2
+--- !u!1 &688551974
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 688551975}
+  - component: {fileID: 688551976}
+  m_Layer: 0
+  m_Name: SoundManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &688551975
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 688551974}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -11.015181, y: -58.611267, z: 237.93817}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 913433066}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &688551976
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 688551974}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60083d3ce2b7acb4d98ceff59fe1cd66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  windSound: {fileID: 8300000, guid: b68f5be09ec7935489f8dc847606470e, type: 3}
+  fireSound: {fileID: 8300000, guid: ca225411a94b8904e8c4670f3fa0726d, type: 3}
+  fireStartSound: {fileID: 8300000, guid: 8fc0eb56d62b6dd448e7c5cd5bcd3e76, type: 3}
+  explosionSound: {fileID: 8300000, guid: e9a2138a3b7dada448d0abd6fdf206bb, type: 3}
+  collisionSounds: []
+  personRigidbody: {fileID: 475541200}
 --- !u!1 &727153461 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5483428962773182988, guid: 60770bdb4dc667c45bea53db0339dc05, type: 3}
@@ -2169,6 +2235,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1191758954}
+  - {fileID: 688551975}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -7556,6 +7623,7 @@ MonoBehaviour:
   maxObjects: 100
   playerTransform: {fileID: 1917331363}
   spawnRadius: 0
+  seagull: {fileID: 0}
   upperBoundTransform: {fileID: 0}
   lowerBoundTransform: {fileID: 0}
   leftBoundTransform: {fileID: 0}
@@ -8735,6 +8803,10 @@ PrefabInstance:
       value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 7338722968301452388, guid: 29c2412c9dd7e4b31a1370261ddccc8f, type: 3}
+      propertyPath: seagull
+      value: 
+      objectReference: {fileID: 6366588515260221070, guid: 4812f764678c9d14f833bd68d83c08d3, type: 3}
+    - target: {fileID: 7338722968301452388, guid: 29c2412c9dd7e4b31a1370261ddccc8f, type: 3}
       propertyPath: playerTransform
       value: 
       objectReference: {fileID: 1917331363}
@@ -8742,6 +8814,10 @@ PrefabInstance:
       propertyPath: offset
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 7338722968320804099, guid: 29c2412c9dd7e4b31a1370261ddccc8f, type: 3}
+      propertyPath: seagull
+      value: 
+      objectReference: {fileID: 6366588515260221070, guid: 4812f764678c9d14f833bd68d83c08d3, type: 3}
     - target: {fileID: 7338722968320804099, guid: 29c2412c9dd7e4b31a1370261ddccc8f, type: 3}
       propertyPath: playerTransform
       value: 
@@ -8750,6 +8826,10 @@ PrefabInstance:
       propertyPath: offset
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 7338722968411162158, guid: 29c2412c9dd7e4b31a1370261ddccc8f, type: 3}
+      propertyPath: seagull
+      value: 
+      objectReference: {fileID: 6366588515260221070, guid: 4812f764678c9d14f833bd68d83c08d3, type: 3}
     - target: {fileID: 7338722968411162158, guid: 29c2412c9dd7e4b31a1370261ddccc8f, type: 3}
       propertyPath: playerTransform
       value: 
@@ -8758,6 +8838,10 @@ PrefabInstance:
       propertyPath: offset
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 7338722968632400636, guid: 29c2412c9dd7e4b31a1370261ddccc8f, type: 3}
+      propertyPath: seagull
+      value: 
+      objectReference: {fileID: 6366588515260221070, guid: 4812f764678c9d14f833bd68d83c08d3, type: 3}
     - target: {fileID: 7338722968632400636, guid: 29c2412c9dd7e4b31a1370261ddccc8f, type: 3}
       propertyPath: playerTransform
       value: 
@@ -8766,6 +8850,10 @@ PrefabInstance:
       propertyPath: offset
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 8880941308054809279, guid: 29c2412c9dd7e4b31a1370261ddccc8f, type: 3}
+      propertyPath: seagull
+      value: 
+      objectReference: {fileID: 6366588515260221070, guid: 4812f764678c9d14f833bd68d83c08d3, type: 3}
     - target: {fileID: 8880941308054809279, guid: 29c2412c9dd7e4b31a1370261ddccc8f, type: 3}
       propertyPath: playerTransform
       value: 
