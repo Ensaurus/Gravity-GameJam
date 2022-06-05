@@ -81,7 +81,7 @@ public class IntroManager : MonoBehaviour
 
         yield return new WaitForSeconds(3);
 
-        introTutorialText.text = "Oh well.\nUse A S and D to nudge yourself. Give it a try.";
+        introTutorialText.text = "Oh well.\nUse WASD to nudge yourself. Give it a try.";
 
         int nudgeCounter = 0; 
         while (true)
