@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
+using Random = UnityEngine.Random;
 
 public class SeagullBehavior : MonoBehaviour
 {
@@ -16,6 +17,11 @@ public class SeagullBehavior : MonoBehaviour
     {
         transform.localPosition = new Vector3((tileWidth / 2), 
             transform.localPosition.y, 10);
+        if (Random.value > 0.7)
+        {
+            GetComponent<AudioSource>().time = Random.Range(0f, 15f);
+            GetComponent<AudioSource>().Play();
+        }
     }
 
     // Update is called once per frame
