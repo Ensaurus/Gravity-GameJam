@@ -26,13 +26,8 @@ public class ProceduralLevel : MonoBehaviour
 
         GameObject newObject = Instantiate(cliffObjects[Random.Range(0, cliffObjects.Length)], 
             newSpawnPos,
-            Quaternion.identity);
-        newObject.transform.SetParent(transform);
+            Quaternion.Euler(-90f, 0f, 0f), transform);
         newObject.AddComponent<MeshCollider>();
-        //newObject.transform.LookAt(new Vector3(position.x, newObject.transform.position.y, position.z));
-        //newObject.transform.localScale = Vector3.one * sparsity;
-        //newObject.transform.rotation = Random.rotation;
-        newObject.transform.rotation = Quaternion.Euler(-90f, 0f, 0f);
        
         // whyyyyyy
         if (Random.value > 0.5)
