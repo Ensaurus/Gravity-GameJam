@@ -10,6 +10,8 @@ public class PlayerSpeedTracker : MonoBehaviour
     public Rigidbody rb;
     public ParticleSystem fireSystem;
     public ParticleSystem explosionSystem;
+    public ParticleSystem nudgeSystem;
+    public NudgeHandler NudgeHandler;
     private Transform myTransform;
     public UnityEvent gameOverEvent;
 
@@ -60,6 +62,9 @@ public class PlayerSpeedTracker : MonoBehaviour
                 fireSystem.Play();
                 explosionSystem.Play();
                 reachedCriticalVelocity = true;
+            }
+            if (NudgeHandler.nudgeUsed == true){
+                nudgeSystem.Play();
             }
             /*
             else
