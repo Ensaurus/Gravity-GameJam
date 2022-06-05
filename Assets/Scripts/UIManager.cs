@@ -10,6 +10,15 @@ public class UIManager : MonoBehaviour
     public GameObject speedometer;
     public Transform speedometerNeedle;
     public ParticleSystem speedometerFire;
+    public int maxNudges = 3;
+    //public int startNudges = 0;
+    public int currentNudges = 3;
+    public float timeForNudge = 3f;
+    private float currentNudgeTime = 0f;
+    private float fillAmountNudgeBar = 0f;
+    public TextMeshProUGUI nudgeCounter;
+    public GameObject nudgeUI;
+    public Image nudgeMask;
     [SerializeField] private const float NEEDLE_MIN_ROTATION = 4.47f;
     [SerializeField] private const float NEEDLE_MAX_ROTATION = -183.77f;
 
@@ -21,6 +30,7 @@ public class UIManager : MonoBehaviour
     {
         score.gameObject.SetActive(false);
         speedometer.SetActive(false);
+        nudgeUI.SetActive(false);
         PlayerBounding.instance.PlayerEnteredBound.AddListener(EnteredBoundHandler);    
     }
 
@@ -28,12 +38,14 @@ public class UIManager : MonoBehaviour
     {
         speedometer.SetActive(true);
         score.gameObject.SetActive(true);
+        nudgeUI.SetActive(true);
     }
 
     // Update is called once per frame
     void Update()
     {
         SetNeedleRotation();
+        GetCurrentNudgeFill();
         score.text = PlayerSpeedTracker.instance.DepthTravelled.ToString("F0");
     }
 
@@ -52,4 +64,49 @@ public class UIManager : MonoBehaviour
             }
         }
     }
+
+    void GetCurrentNudgeFill(){
+        //float fillAmountNudgeBar = (float)currentNudgeTime/ (float)timeForNudge;
+
+        nudgeCounter.text = currentNudges.ToString("F0");
+
+        // if at max nudges, do not start earning the next nudge
+        /*
+        if (currentNudges >= maxNudges){
+            nudgeMask.fillAmount = 1.0f;
+        }
+        */
+
+        // if the nudge bar is full, and at max nudges:
+        /*
+        if ((currentNudgeTime >= timeForNudge) && (currentNudges >= maxNudges)){
+            nudgeMask.fillAmount = 1.0f;
+            currentNudgeTime = 0;
+        }
+        */
+        if (currentNudges < maxNudges){
+            currentNudgeTime += Time.deltaTime;
+            fillAmountNudgeBar = currentNudgeTime / timeForNudge;
+            if(fillAmountNudgeBar > 1){
+                currentNudges += 1;
+                fillAmountNudgeBar = 0;
+                currentNudgeTime = 0;
+            }
+            nudgeMask.fillAmount = fillAmountNudgeBar;
+        }
+        else{
+            fillAmountNudgeBar = 1;
+            nudgeMask.fillAmount = fillAmountNudgeBar;
+        }
+
+        if (currentNudges > 0){
+            if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.S)){
+                Debug.Log("Nudge used.");
+                currentNudges -= 1;
+                nudgeCounter.text = currentNudges.ToString("F0");
+            }
+        }
+        nudgeCounter.text = currentNudges.ToString("F0");
+    }
+
 }
