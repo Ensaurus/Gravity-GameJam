@@ -50,6 +50,7 @@ public class SeagullBehavior : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        Debug.Log("Collision!");
         Destroy(gameObject);
     }
 }

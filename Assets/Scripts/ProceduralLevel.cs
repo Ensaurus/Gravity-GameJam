@@ -121,7 +121,7 @@ public class ProceduralLevel : MonoBehaviour
 
         if (Random.value > 0.3)
         {
-            Instantiate(seagull, transform);
+            Instantiate(seagull, new Vector3(0, Random.Range(ymin, ymax), 0), Quaternion.identity, transform);
         }
     }
 
