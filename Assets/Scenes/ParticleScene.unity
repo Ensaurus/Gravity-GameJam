@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641275, b: 0.5748172, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -123,6 +123,11 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!198 &768230963 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 1971432061743733188, guid: 60770bdb4dc667c45bea53db0339dc05, type: 3}
+  m_PrefabInstance: {fileID: 782479645}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &770437371
 GameObject:
   m_ObjectHideFlags: 0
@@ -134,7 +139,6 @@ GameObject:
   - component: {fileID: 770437375}
   - component: {fileID: 770437374}
   - component: {fileID: 770437373}
-  - component: {fileID: 770437372}
   m_Layer: 0
   m_Name: ExplosionEffect
   m_TagString: Untagged
@@ -142,20 +146,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &770437372
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 770437371}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 63714df31d4c1c749a86e6cd053cfcfe, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rb: {fileID: 1732695218}
-  maxSpeed: 40
 --- !u!199 &770437373
 ParticleSystemRenderer:
   serializedVersion: 6
@@ -5083,6 +5073,10 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4576317034116191010, guid: 60770bdb4dc667c45bea53db0339dc05, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4838021359202055673, guid: 60770bdb4dc667c45bea53db0339dc05, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.2847038
@@ -5115,6 +5109,30 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -17.16
       objectReference: {fileID: 0}
+    - target: {fileID: 6460280789341197388, guid: 60770bdb4dc667c45bea53db0339dc05, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7060664932098506158, guid: 60770bdb4dc667c45bea53db0339dc05, type: 3}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7131271824835725585, guid: 60770bdb4dc667c45bea53db0339dc05, type: 3}
+      propertyPath: fireSystem
+      value: 
+      objectReference: {fileID: 768230963}
+    - target: {fileID: 7131271824835725585, guid: 60770bdb4dc667c45bea53db0339dc05, type: 3}
+      propertyPath: explosionSystem
+      value: 
+      objectReference: {fileID: 1571378564}
+    - target: {fileID: 7131271824835725585, guid: 60770bdb4dc667c45bea53db0339dc05, type: 3}
+      propertyPath: criticalVelocity
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 7526779223774651004, guid: 60770bdb4dc667c45bea53db0339dc05, type: 3}
+      propertyPath: m_RootOrder
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 7542120572266241273, guid: 60770bdb4dc667c45bea53db0339dc05, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -5122,6 +5140,10 @@ PrefabInstance:
     - target: {fileID: 8801723139851922740, guid: 60770bdb4dc667c45bea53db0339dc05, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8941984813312944719, guid: 60770bdb4dc667c45bea53db0339dc05, type: 3}
+      propertyPath: m_RootOrder
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 60770bdb4dc667c45bea53db0339dc05, type: 3}
@@ -5219,6 +5241,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!198 &1571378564 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 5465374654265698524, guid: 60770bdb4dc667c45bea53db0339dc05, type: 3}
+  m_PrefabInstance: {fileID: 782479645}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1826372683
 GameObject:
   m_ObjectHideFlags: 0

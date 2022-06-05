@@ -5,7 +5,8 @@ public class PlayerSpeedTracker : MonoBehaviour
     public static PlayerSpeedTracker instance;
 
     public Rigidbody rb;
-    private ParticleSystem ps;
+    public ParticleSystem fireSystem;
+    public ParticleSystem explosionSystem;
     private Transform myTransform;
 
     [SerializeField] private float criticalVelocity = 40;
@@ -37,7 +38,7 @@ public class PlayerSpeedTracker : MonoBehaviour
         lengthOfTile = Vector3.Distance(PlayerBounding.instance.upperBoundTransform.position, PlayerBounding.instance.lowerBoundTransform.position);
         reachedCriticalVelocity = false;
         rb = GetComponent<Rigidbody>();
-        ps = GetComponentInChildren<ParticleSystem>();
+        //ps = GetComponentInChildren<ParticleSystem>();
         myTransform = transform;
     }
 
@@ -49,7 +50,8 @@ public class PlayerSpeedTracker : MonoBehaviour
             depthTravelled = currentDepth > depthTravelled ? currentDepth : depthTravelled;
             if (!reachedCriticalVelocity && Mathf.Abs(rb.velocity.y) >= criticalVelocity)
             {
-                ps.Play();
+                fireSystem.Play();
+                explosionSystem.Play();
                 reachedCriticalVelocity = true;
             }
             /*
@@ -70,4 +72,12 @@ public class PlayerSpeedTracker : MonoBehaviour
     {
         loggedDepthTravelled += lengthOfTile;
     }
+
+    void OnCollisionEnter(Collision collision){
+        if(reachedCriticalVelocity){
+            explosionSystem.Play();
+        }
+
+    }
+
 }
