@@ -7,16 +7,17 @@ using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour
 {
+    public GameObject tutorialText;
     public TextMeshProUGUI score;
     public GameObject gameOverText;
     public Button restartButton;
     public GameObject speedometer;
     public Transform speedometerNeedle;
     public ParticleSystem speedometerFire;
-    public int maxNudges = 3;
+    public int maxNudges = 5;
     //public int startNudges = 0;
     public NudgeHandler NudgeHandler;
-    public int currentNudges = 3;
+    public int currentNudges = 5;
     public float timeForNudge = 3f;
     private float currentNudgeTime = 0f;
     private float fillAmountNudgeBar = 0f;
@@ -27,11 +28,13 @@ public class UIManager : MonoBehaviour
     [SerializeField] private const float NEEDLE_MAX_ROTATION = -183.77f;
 
     private bool speedometerMaxed;
+    private bool gameRunning;
 
 
     // Start is called before the first frame update
     void Start()
     {
+        gameRunning = false;
         score.gameObject.SetActive(false);
         speedometer.SetActive(false);
         nudgeUI.SetActive(false);
@@ -46,14 +49,18 @@ public class UIManager : MonoBehaviour
         speedometer.SetActive(true);
         score.gameObject.SetActive(true);
         nudgeUI.SetActive(true);
+        gameRunning = true;
     }
 
     // Update is called once per frame
     void Update()
     {
-        SetNeedleRotation();
-        GetCurrentNudgeFill();
-        score.text = PlayerSpeedTracker.instance.DepthTravelled.ToString("F0");
+        if (gameRunning)
+        {
+            SetNeedleRotation();
+            GetCurrentNudgeFill();
+            score.text = PlayerSpeedTracker.instance.DepthTravelled.ToString("F0");
+        }
     }
 
     private void SetNeedleRotation()
