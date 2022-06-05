@@ -8,7 +8,9 @@ public class PlayerSpeedTracker : MonoBehaviour
     private ParticleSystem ps;
     private Transform myTransform;
 
-    [SerializeField] private float criticalVelocity = 40;
+    public float currentVelocity;
+    public float criticalVelocity { get; private set; } = 40;
+        
     public bool reachedCriticalVelocity
     {
         get; 
@@ -47,7 +49,8 @@ public class PlayerSpeedTracker : MonoBehaviour
         {
             currentDepth = loggedDepthTravelled + Vector3.Distance(PlayerBounding.instance.upperBoundTransform.position, myTransform.position);
             depthTravelled = currentDepth > depthTravelled ? currentDepth : depthTravelled;
-            if (!reachedCriticalVelocity && Mathf.Abs(rb.velocity.y) >= criticalVelocity)
+            currentVelocity = Mathf.Abs(rb.velocity.y);
+            if (!reachedCriticalVelocity && currentVelocity >= criticalVelocity)
             {
                 ps.Play();
                 reachedCriticalVelocity = true;
