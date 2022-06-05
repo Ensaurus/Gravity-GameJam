@@ -59,7 +59,7 @@ public class SoundManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float velocity = personRigidbody.velocity.magnitude;
+        float velocity = Mathf.Abs(personRigidbody.velocity.y);
         float targetVolume = 0f;
         if (velocity <= 20f)
         {
@@ -99,6 +99,4 @@ public class SoundManager : MonoBehaviour
             _source.volume = targetVolume;
         }*/
     }
-    
-    
 }

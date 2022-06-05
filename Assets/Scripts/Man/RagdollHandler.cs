@@ -6,6 +6,7 @@ public class RagdollHandler : MonoBehaviour
 {
     Collider[] allColliders;
     Rigidbody[] allRigidBodies;
+    private Joint[] allJoints;
     Animator myAnim;
     // body part in ragdoll used as reference point for snapping parent back into place
     public Transform refTransform;
@@ -20,6 +21,8 @@ public class RagdollHandler : MonoBehaviour
         allColliders = gameObject.GetComponentsInChildren<Collider>();
         myAnim = gameObject.GetComponent<Animator>();
         allRigidBodies = gameObject.GetComponentsInChildren<Rigidbody>();
+        allJoints = gameObject.GetComponentsInChildren<Joint>();
+        PlayerSpeedTracker.instance.gameOverEvent.AddListener(OnGameOver);
         DisableRagdoll();
     }
 
@@ -110,5 +113,18 @@ public class RagdollHandler : MonoBehaviour
             }
         }
         myAnim.enabled = true;
+    }
+
+    private void OnGameOver()
+    {
+        foreach (var joint in allJoints)
+        {
+            joint.breakForce = 0;
+        }
+        
+        foreach (var rb in allRigidBodies)
+        {
+            rb.AddExplosionForce(100f, rb.position, 10f);
+        }
     }
 }
