@@ -79,6 +79,7 @@ public class PlayerSpeedTracker : MonoBehaviour
     void OnCollisionEnter(Collision collision){
         if(reachedCriticalVelocity){
             explosionSystem.Play();
+            SoundManager.instance.Explode();
         }
 
     }
