@@ -60,11 +60,13 @@ public class PlayerBounding : MonoBehaviour
                 playerTransform.position = new Vector3(playerTransform.position.x, upperBound - spawnBuffer, playerTransform.position.z);
                 ShiftUp();
             }
+            /*
             else if (playerTransform.position.y > upperBound)
             {
                 playerTransform.position = new Vector3(playerTransform.position.x, lowerBound + spawnBuffer, playerTransform.position.z);
                 ShiftDown();
             }
+            */
             if (playerTransform.position.x < leftBound)
             {
                 playerTransform.position = new Vector3(rightBound - spawnBuffer, playerTransform.position.y, playerTransform.position.z);
