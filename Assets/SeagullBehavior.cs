@@ -48,9 +48,9 @@ public class SeagullBehavior : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter(Collision collision)
+    /*private void OnCollisionStay(Collision collisionInfo)
     {
         Debug.Log("Collision!");
         Destroy(gameObject);
-    }
+    }*/
 }

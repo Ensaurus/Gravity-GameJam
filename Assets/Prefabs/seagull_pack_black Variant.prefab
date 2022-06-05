@@ -74,20 +74,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 22cec67a79c03454aa4e585f4851700d, type: 3}
   m_PrefabInstance: {fileID: 6096681286240828383}
   m_PrefabAsset: {fileID: 0}
---- !u!64 &311651483
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6366588515260221070}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 0}
 --- !u!114 &311651484
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -102,3 +88,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tileWidth: 20
   tileEdge: 10
+--- !u!136 &6605819486032249406
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6366588515260221070}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 7.16348
+  m_Height: 48.653305
+  m_Direction: 2
+  m_Center: {x: 0.3748244, y: 0.62908053, z: 19.841122}
