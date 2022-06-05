@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerBounding : MonoBehaviour
@@ -9,44 +7,120 @@ public class PlayerBounding : MonoBehaviour
     public Transform leftBoundTransform;
     public Transform rightBoundTransform;
 
+    public GameObject activeTile;
+    public GameObject upperTile;
+    public GameObject lowerTile;
+    public GameObject leftTile;
+    public GameObject rightTile;
     
     private float upperBound;
     private float lowerBound;
     private float leftBound;
     private float rightBound;
 
-    private Transform myTransform;
+    // note should be Ragdoll's root
+    public Transform playerTransform;
 
     public float spawnBuffer;
+
+    private bool boundIsActive;
 
     // Start is called before the first frame update
     void Start()
     {
-        myTransform = transform;
         upperBound = upperBoundTransform.position.y;
         lowerBound = lowerBoundTransform.position.y;
         leftBound = leftBoundTransform.position.x;
         rightBound = rightBoundTransform.position.x;
     }
 
+    private void OnTriggerEnter(Collider col)
+    {
+        if (col.gameObject.tag == "Player")
+        {
+            boundIsActive = true;
+        }
+    }
+
     // Update is called once per frame
     void Update()
     {
-        if(myTransform.position.y < lowerBound)
+        if (boundIsActive)
         {
-            myTransform.position = new Vector3(myTransform.position.x, upperBound - spawnBuffer, myTransform.position.z);
+            if (playerTransform.position.y < lowerBound)
+            {
+                playerTransform.position = new Vector3(playerTransform.position.x, upperBound - spawnBuffer, playerTransform.position.z);
+                ShiftUp();
+            }
+            else if (playerTransform.position.y > upperBound)
+            {
+                playerTransform.position = new Vector3(playerTransform.position.x, upperBound + spawnBuffer, playerTransform.position.z);
+                ShiftDown();
+            }
+            if (playerTransform.position.x < leftBound)
+            {
+                playerTransform.position = new Vector3(rightBound - spawnBuffer, playerTransform.position.y, playerTransform.position.z);
+                ShiftRight();
+            }
+            else if (playerTransform.position.x > rightBound)
+            {
+                playerTransform.position = new Vector3(leftBound + spawnBuffer, playerTransform.position.y, playerTransform.position.z);
+                ShiftLeft();
+            }
         }
-        else if (myTransform.position.y > upperBound)
-        {
-            myTransform.position = new Vector3(myTransform.position.x, upperBound + spawnBuffer, myTransform.position.z);
-        }
-        if (myTransform.position.x < leftBound)
-        {
-            myTransform.position = new Vector3(rightBound-spawnBuffer, myTransform.position.y, myTransform.position.z);
-        }
-        else if (myTransform.position.x > rightBound)
-        {
-            myTransform.position = new Vector3(leftBound+spawnBuffer, myTransform.position.y, myTransform.position.z);
-        }
+    }
+
+
+    // I'm sure there's a way to make this all 1 function, but don't want to think about it too much rn
+    private void ShiftUp()
+    {
+        Vector3 activeTilePos = activeTile.transform.position;
+        activeTile.transform.position = upperTile.transform.position;
+        upperTile.transform.position = lowerTile.transform.position;
+        lowerTile.transform.position = activeTilePos;
+
+        GameObject oldActive = activeTile;
+        activeTile = lowerTile;
+        lowerTile = upperTile;
+        upperTile = oldActive;
+    }
+
+    private void ShiftDown()
+    {
+        Vector3 activeTilePos = activeTile.transform.position;
+        activeTile.transform.position = lowerTile.transform.position;
+        lowerTile.transform.position = upperTile.transform.position;
+        upperTile.transform.position = activeTilePos;
+
+        GameObject oldActive = activeTile;
+        activeTile = upperTile;
+        upperTile = lowerTile;
+        lowerTile = oldActive;
+    }
+
+    private void ShiftLeft()
+    {
+        Vector3 activeTilePos = activeTile.transform.position;
+        activeTile.transform.position = leftTile.transform.position;
+        leftTile.transform.position = rightTile.transform.position;
+        rightTile.transform.position = activeTilePos;
+
+        GameObject oldActive = activeTile;
+        activeTile = rightTile;
+        rightTile = leftTile;
+        leftTile = oldActive;
+    }
+
+    private void ShiftRight()
+    {
+        Vector3 activeTilePos = activeTile.transform.position;
+        activeTile.transform.position = rightTile.transform.position;
+        rightTile.transform.position = leftTile.transform.position;
+        leftTile.transform.position = activeTilePos;
+
+        GameObject oldActive = activeTile;
+        activeTile = leftTile;
+        leftTile = rightTile;
+        rightTile = oldActive;
     }
 }
