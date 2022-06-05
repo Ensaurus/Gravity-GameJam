@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -7,6 +8,8 @@ public class PlayerBounding : MonoBehaviour
     public UnityEvent<GameObject> SwitchedActiveTile;
     public UnityEvent ReachedBottomBound;
     public UnityEvent PlayerEnteredBound;
+    public UnityEvent FirstUpwardShift;
+    private bool hasShiftedUp;
 
     public Transform upperBoundTransform;
     public Transform lowerBoundTransform;
@@ -29,16 +32,22 @@ public class PlayerBounding : MonoBehaviour
 
     public float spawnBuffer;
 
-    private bool boundIsActive;
+    public bool boundIsActive;
 
     // Start is called before the first frame update
     void Awake()
     {
+        boundIsActive = false;
         instance = this;
         upperBound = upperBoundTransform.position.y;
         lowerBound = lowerBoundTransform.position.y;
         leftBound = leftBoundTransform.position.x;
         rightBound = rightBoundTransform.position.x;
+    }
+
+    private void Start()
+    {
+        PlayerSpeedTracker.instance.gameOverEvent.AddListener(OnGameOver);
     }
 
     private void OnTriggerEnter(Collider col)
@@ -84,6 +93,12 @@ public class PlayerBounding : MonoBehaviour
     // I'm sure there's a way to make this all 1 function, but don't want to think about it too much rn
     private void ShiftUp()
     {
+        if (!hasShiftedUp)
+        {
+            hasShiftedUp = true;
+            FirstUpwardShift.Invoke();
+        }
+
         Vector3 activeTilePos = activeTile.transform.position;
         activeTile.transform.position = upperTile.transform.position;
         upperTile.transform.position = lowerTile.transform.position;
@@ -95,6 +110,8 @@ public class PlayerBounding : MonoBehaviour
         upperTile = oldActive;
         SwitchedActiveTile.Invoke(lowerTile);
         ReachedBottomBound.Invoke();
+
+        
     }
 
     private void ShiftDown()
@@ -137,5 +154,10 @@ public class PlayerBounding : MonoBehaviour
         leftTile = rightTile;
         rightTile = oldActive;
         SwitchedActiveTile.Invoke(leftTile);
+    }
+
+    private void OnGameOver()
+    {
+        Destroy(gameObject);
     }
 }

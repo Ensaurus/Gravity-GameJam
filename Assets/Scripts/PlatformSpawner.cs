@@ -20,7 +20,7 @@ public class PlatformSpawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (PlayerBounding.instance.boundIsActive && Input.GetKeyDown(KeyCode.Space))
         {
             SpawnPlatform();
         }

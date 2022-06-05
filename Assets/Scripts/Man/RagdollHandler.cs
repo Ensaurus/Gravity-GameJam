@@ -6,12 +6,14 @@ public class RagdollHandler : MonoBehaviour
 {
     Collider[] allColliders;
     Rigidbody[] allRigidBodies;
+    private Joint[] allJoints;
     Animator myAnim;
     // body part in ragdoll used as reference point for snapping parent back into place
     public Transform refTransform;
     private bool isRagdoll;
-    public bool IsRagdoll { get { return isRagdoll; }
-    }
+    public bool IsRagdoll { get { return isRagdoll; } }
+
+    public float initialForceStrength = 15;
 
     // Start is called before the first frame update
     void Start()
@@ -19,12 +21,15 @@ public class RagdollHandler : MonoBehaviour
         allColliders = gameObject.GetComponentsInChildren<Collider>();
         myAnim = gameObject.GetComponent<Animator>();
         allRigidBodies = gameObject.GetComponentsInChildren<Rigidbody>();
+        allJoints = gameObject.GetComponentsInChildren<Joint>();
+        PlayerSpeedTracker.instance.gameOverEvent.AddListener(OnGameOver);
         DisableRagdoll();
     }
 
     // Update is called once per frame
     void Update()
     {
+        /*
         if (Input.GetKeyDown(KeyCode.R))
         {
             if (!isRagdoll)
@@ -32,9 +37,23 @@ public class RagdollHandler : MonoBehaviour
             else
                 DisableRagdoll();
         }
+        */
     }
 
-    private void EnableRagdoll()
+    // Called by IntroManager
+    public void InitialRagdoll()
+    {
+        GetComponent<Rigidbody>().AddForce(new Vector3(1, 1, 0) * initialForceStrength, ForceMode.Impulse);
+        //EnableRagdoll();
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "RagdollEnabler")
+            EnableRagdoll();
+    }
+
+    public void EnableRagdoll()
     {
         isRagdoll = true;
         foreach (Collider c in allColliders)
@@ -68,7 +87,7 @@ public class RagdollHandler : MonoBehaviour
     {
         isRagdoll = false;
         // keep z axis constant cuz 2D
-        transform.position = new Vector3 (refTransform.position.x, refTransform.position.y, transform.position.z);
+        // transform.position = new Vector3 (refTransform.position.x, refTransform.position.y, transform.position.z);
         foreach (Collider c in allColliders)
         {
             if (c.gameObject != gameObject)
@@ -94,5 +113,18 @@ public class RagdollHandler : MonoBehaviour
             }
         }
         myAnim.enabled = true;
+    }
+
+    private void OnGameOver()
+    {
+        foreach (var joint in allJoints)
+        {
+            joint.breakForce = 0;
+        }
+        
+        foreach (var rb in allRigidBodies)
+        {
+            rb.AddExplosionForce(100f, rb.position, 10f);
+        }
     }
 }

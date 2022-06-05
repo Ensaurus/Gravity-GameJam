@@ -3,10 +3,13 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour
 {
     public TextMeshProUGUI score;
+    public GameObject gameOverText;
+    public Button restartButton;
     public GameObject speedometer;
     public Transform speedometerNeedle;
     public ParticleSystem speedometerFire;
@@ -33,6 +36,9 @@ public class UIManager : MonoBehaviour
         speedometer.SetActive(false);
         nudgeUI.SetActive(false);
         PlayerBounding.instance.PlayerEnteredBound.AddListener(EnteredBoundHandler);    
+        PlayerBounding.instance.PlayerEnteredBound.AddListener(EnteredBoundHandler);
+        PlayerSpeedTracker.instance.gameOverEvent.AddListener(OnGameOver);
+        restartButton.onClick.AddListener(ResetScene);
     }
 
     private void EnteredBoundHandler()
@@ -94,4 +100,14 @@ public class UIManager : MonoBehaviour
         nudgeCounter.text = currentNudges.ToString("F0");
     }
 
+    private void OnGameOver()
+    {
+        gameOverText.SetActive(true);
+        restartButton.gameObject.SetActive(true);
+    }
+
+    private void ResetScene()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
 }

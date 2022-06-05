@@ -24,6 +24,8 @@ public class ProceduralLevel : MonoBehaviour
 
     public float offset = 0;
 
+    public int seagullSpawnAttempts;
+
     void SpawnObject(float ymin, float ymax, float startY)
     {
         var position = playerTransform.position;
@@ -119,9 +121,12 @@ public class ProceduralLevel : MonoBehaviour
             spawnedObjects.Add(newObject);
         }
 
-        if (Random.value > 0.3)
+        for(int i=0; i< seagullSpawnAttempts; i++)
         {
-            Instantiate(seagull, new Vector3(0, Random.Range(ymin, ymax), 0), Quaternion.identity, transform);
+            if (Random.value > 0.3)
+            {
+                Instantiate(seagull, new Vector3(0, Random.Range(ymin, ymax), 0), Quaternion.identity, transform);
+            }
         }
     }
 
