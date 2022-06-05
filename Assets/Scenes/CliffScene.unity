@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.6196751, g: 0.92157906, b: 0.9758063, a: 1}
+  m_IndirectSpecularColor: {r: 0.6196745, g: 0.92157805, b: 0.9758052, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -160,6 +160,7 @@ MonoBehaviour:
   speedometerNeedle: {fileID: 1466266011}
   speedometerFire: {fileID: 1191758952}
   maxNudges: 3
+  NudgeHandler: {fileID: 1148532807}
   currentNudges: 3
   timeForNudge: 5
   nudgeCounter: {fileID: 1029330551}
@@ -2608,6 +2609,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 475541200}
   nudgeStrength: 1000
+  UIManager: {fileID: 13389752}
+  nudgeUsed: 0
+  maxNudge: 0
+  currentNudges: 0
 --- !u!114 &1148532813
 MonoBehaviour:
   m_ObjectHideFlags: 0

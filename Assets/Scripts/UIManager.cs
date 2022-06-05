@@ -12,6 +12,7 @@ public class UIManager : MonoBehaviour
     public ParticleSystem speedometerFire;
     public int maxNudges = 3;
     //public int startNudges = 0;
+    public NudgeHandler NudgeHandler;
     public int currentNudges = 3;
     public float timeForNudge = 3f;
     private float currentNudgeTime = 0f;
@@ -66,24 +67,8 @@ public class UIManager : MonoBehaviour
     }
 
     void GetCurrentNudgeFill(){
-        //float fillAmountNudgeBar = (float)currentNudgeTime/ (float)timeForNudge;
-
         nudgeCounter.text = currentNudges.ToString("F0");
-
-        // if at max nudges, do not start earning the next nudge
-        /*
-        if (currentNudges >= maxNudges){
-            nudgeMask.fillAmount = 1.0f;
-        }
-        */
-
-        // if the nudge bar is full, and at max nudges:
-        /*
-        if ((currentNudgeTime >= timeForNudge) && (currentNudges >= maxNudges)){
-            nudgeMask.fillAmount = 1.0f;
-            currentNudgeTime = 0;
-        }
-        */
+        
         if (currentNudges < maxNudges){
             currentNudgeTime += Time.deltaTime;
             fillAmountNudgeBar = currentNudgeTime / timeForNudge;
@@ -100,7 +85,7 @@ public class UIManager : MonoBehaviour
         }
 
         if (currentNudges > 0){
-            if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.S)){
+            if (NudgeHandler.nudgeUsed == true){
                 Debug.Log("Nudge used.");
                 currentNudges -= 1;
                 nudgeCounter.text = currentNudges.ToString("F0");

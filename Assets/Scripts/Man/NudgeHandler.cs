@@ -2,12 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+
 public class NudgeHandler : MonoBehaviour
 {
     private RagdollHandler ragdollHandler;
     //public Rigidbody[] ragdollParts;
     public Rigidbody target;
     public float nudgeStrength = 50;
+    public UIManager UIManager;
+    public bool nudgeUsed = false;
+    public float maxNudge;
+    public float currentNudges;
 
     private enum direction
     {
@@ -20,6 +26,7 @@ public class NudgeHandler : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        nudgeUsed = false;
         // ragdollParts = gameObject.GetComponentsInChildren<Rigidbody>();
         ragdollHandler = GetComponent<RagdollHandler>();
     }
@@ -27,23 +34,30 @@ public class NudgeHandler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        nudgeUsed = false;
         if (ragdollHandler.IsRagdoll)
         {
-            if (Input.GetKeyDown(KeyCode.A))
-            {
-                Nudge(direction.left);
-            }
-            else if (Input.GetKeyDown(KeyCode.D))
-            {
-                Nudge(direction.right);
-            }
-            else if (Input.GetKeyDown(KeyCode.W))
-            {
-                Nudge(direction.up);
-            }
-            else if (Input.GetKeyDown(KeyCode.S))
-            {
-                Nudge(direction.down);
+            if (UIManager.currentNudges > 0 && UIManager.currentNudges <= UIManager.maxNudges){
+                if (Input.GetKeyDown(KeyCode.A))
+                {
+                    Nudge(direction.left);
+                    nudgeUsed = true;
+                }
+                else if (Input.GetKeyDown(KeyCode.D))
+                {
+                    Nudge(direction.right);
+                    nudgeUsed = true;
+                }
+                else if (Input.GetKeyDown(KeyCode.W))
+                {
+                    Nudge(direction.up);
+                    nudgeUsed = true;
+                }
+                else if (Input.GetKeyDown(KeyCode.S))
+                {
+                    Nudge(direction.down);
+                    nudgeUsed = true;
+                }  
             }
         }
     }
