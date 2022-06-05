@@ -1,7 +1,13 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 public class PlayerBounding : MonoBehaviour
 {
+    public static PlayerBounding instance;
+    public UnityEvent<GameObject> SwitchedActiveTile;
+    public UnityEvent ReachedBottomBound;
+    public UnityEvent PlayerEnteredBound;
+
     public Transform upperBoundTransform;
     public Transform lowerBoundTransform;
     public Transform leftBoundTransform;
@@ -26,8 +32,9 @@ public class PlayerBounding : MonoBehaviour
     private bool boundIsActive;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
+        instance = this;
         upperBound = upperBoundTransform.position.y;
         lowerBound = lowerBoundTransform.position.y;
         leftBound = leftBoundTransform.position.x;
@@ -39,6 +46,7 @@ public class PlayerBounding : MonoBehaviour
         if (col.gameObject.tag == "Player")
         {
             boundIsActive = true;
+            PlayerEnteredBound.Invoke();
         }
     }
 
@@ -54,7 +62,7 @@ public class PlayerBounding : MonoBehaviour
             }
             else if (playerTransform.position.y > upperBound)
             {
-                playerTransform.position = new Vector3(playerTransform.position.x, upperBound + spawnBuffer, playerTransform.position.z);
+                playerTransform.position = new Vector3(playerTransform.position.x, lowerBound + spawnBuffer, playerTransform.position.z);
                 ShiftDown();
             }
             if (playerTransform.position.x < leftBound)
@@ -83,6 +91,8 @@ public class PlayerBounding : MonoBehaviour
         activeTile = lowerTile;
         lowerTile = upperTile;
         upperTile = oldActive;
+        SwitchedActiveTile.Invoke(lowerTile);
+        ReachedBottomBound.Invoke();
     }
 
     private void ShiftDown()
@@ -96,6 +106,7 @@ public class PlayerBounding : MonoBehaviour
         activeTile = upperTile;
         upperTile = lowerTile;
         lowerTile = oldActive;
+        SwitchedActiveTile.Invoke(upperTile);
     }
 
     private void ShiftLeft()
@@ -109,6 +120,7 @@ public class PlayerBounding : MonoBehaviour
         activeTile = rightTile;
         rightTile = leftTile;
         leftTile = oldActive;
+        SwitchedActiveTile.Invoke(rightTile);
     }
 
     private void ShiftRight()
@@ -122,5 +134,6 @@ public class PlayerBounding : MonoBehaviour
         activeTile = leftTile;
         leftTile = rightTile;
         rightTile = oldActive;
+        SwitchedActiveTile.Invoke(leftTile);
     }
 }

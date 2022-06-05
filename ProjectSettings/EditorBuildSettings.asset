@@ -4,5 +4,8 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/CliffScene.unity
+    guid: 4099c0115e371cc4291fe36435f6ff46
   m_configObjects: {}

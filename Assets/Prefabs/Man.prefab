@@ -4735,7 +4735,7 @@ GameObject:
   - component: {fileID: 1971432061743733188}
   - component: {fileID: 4536861178324671634}
   m_Layer: 0
-  m_Name: Particle System
+  m_Name: FireEffect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4773,7 +4773,7 @@ ParticleSystem:
   emitterVelocityMode: 1
   looping: 1
   prewarm: 1
-  playOnAwake: 1
+  playOnAwake: 0
   useUnscaledTime: 0
   autoRandomSeed: 1
   startDelay:
@@ -5009,7 +5009,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 3
       scalar: 1
-      minScalar: 0.001
+      minScalar: 0
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -9853,6 +9853,7 @@ GameObject:
   - component: {fileID: 212234086013220017}
   - component: {fileID: 1651976272}
   - component: {fileID: 1651976271}
+  - component: {fileID: 7131271824835725585}
   m_Layer: 0
   m_Name: Root_M
   m_TagString: Untagged
@@ -9908,6 +9909,20 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 2
   m_CollisionDetection: 0
+--- !u!114 &7131271824835725585
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6688636729933137452}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63714df31d4c1c749a86e6cd053cfcfe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rb: {fileID: 1651976271}
+  criticalVelocity: 0
 --- !u!1 &6820000361518423105
 GameObject:
   m_ObjectHideFlags: 0
