@@ -4734,7 +4734,6 @@ GameObject:
   - component: {fileID: 6460280789341197388}
   - component: {fileID: 1971432061743733188}
   - component: {fileID: 4536861178324671634}
-  - component: {fileID: 1107046404343588815}
   m_Layer: 0
   m_Name: FireEffect
   m_TagString: Untagged
@@ -9536,20 +9535,6 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
---- !u!114 &1107046404343588815
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5922949472992365407}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 63714df31d4c1c749a86e6cd053cfcfe, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rb: {fileID: 1651976271}
-  maxSpeed: 40
 --- !u!1 &5926885975412700034
 GameObject:
   m_ObjectHideFlags: 0
@@ -9868,6 +9853,7 @@ GameObject:
   - component: {fileID: 212234086013220017}
   - component: {fileID: 1651976272}
   - component: {fileID: 1651976271}
+  - component: {fileID: 7131271824835725585}
   m_Layer: 0
   m_Name: Root_M
   m_TagString: Untagged
@@ -9923,6 +9909,20 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 2
   m_CollisionDetection: 0
+--- !u!114 &7131271824835725585
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6688636729933137452}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63714df31d4c1c749a86e6cd053cfcfe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rb: {fileID: 1651976271}
+  criticalVelocity: 0
 --- !u!1 &6820000361518423105
 GameObject:
   m_ObjectHideFlags: 0

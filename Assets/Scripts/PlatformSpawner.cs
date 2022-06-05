@@ -28,8 +28,15 @@ public class PlatformSpawner : MonoBehaviour
 
     private void SpawnPlatform()
     {
-        Instantiate(platform, new Vector3(playerTransform.position.x, playerTransform.position.y - spawnDistance, playerTransform.position.z), Quaternion.Euler(-90, 0, 0));
-        // Instantiate(platform);
-        // platform.transform.position = new Vector3(playerTransform.position.x, playerTransform.position.y - spawnDistance, playerTransform.position.z);
+        float lowerBound = PlayerBounding.instance.lowerBoundTransform.position.y;
+        float spawnY = playerTransform.position.y - spawnDistance;
+        if (spawnY < lowerBound)
+        {
+            float upperBound = PlayerBounding.instance.upperBoundTransform.position.y;
+            float extraLength = lowerBound - spawnY;
+            spawnY = upperBound - extraLength;
+        }
+        // just using upperBound Transform x as midpoint of tile
+        Instantiate(platform, new Vector3(PlayerBounding.instance.upperBoundTransform.position.x, spawnY, playerTransform.position.z), Quaternion.Euler(-90, 0, 0));
     }
 }

@@ -4,6 +4,21 @@ using UnityEngine;
 
 public class PlatformController : MonoBehaviour
 {
+    private GameObject currentTile;
+
+    private void Start()
+    {
+        PlayerBounding.instance.SwitchedActiveTile.AddListener(SwitchTileHandler);
+    }
+
+    private void SwitchTileHandler(GameObject tile)
+    {
+        if (currentTile && tile == currentTile)
+        {
+            Destroy(gameObject);
+        }
+    }
+
     Coroutine activeCoroutine;
 
     private void OnCollisionEnter(Collision collision)
@@ -16,6 +31,9 @@ public class PlatformController : MonoBehaviour
 
     IEnumerator MoveAway()
     {
+        // attach self to active tile
+        transform.SetParent(PlayerBounding.instance.activeTile.transform);
+        currentTile = PlayerBounding.instance.activeTile;
         float timer = PlatformSpawner.instance.platformLifeTime;
         while (timer > 0)
         {
