@@ -5053,6 +5053,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: HumanMale_Character_FREE
       objectReference: {fileID: 0}
+    - target: {fileID: 2826382871447421150, guid: 60770bdb4dc667c45bea53db0339dc05, type: 3}
+      propertyPath: m_RootOrder
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 3242882747939926295, guid: 60770bdb4dc667c45bea53db0339dc05, type: 3}
       propertyPath: m_LocalRotation.w
       value: 0.98558897
