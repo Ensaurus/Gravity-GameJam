@@ -2646,11 +2646,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 475541200}
-  nudgeStrength: 50
+  nudgeStrength: 1000
   UIManager: {fileID: 13389752}
   nudgeUsed: 0
-  maxNudge: 0
-  currentNudges: 0
+  maxNudge: 5
+  currentNudges: 5
 --- !u!1 &1191758951
 GameObject:
   m_ObjectHideFlags: 0
