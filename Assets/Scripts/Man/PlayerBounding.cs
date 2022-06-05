@@ -158,6 +158,6 @@ public class PlayerBounding : MonoBehaviour
 
     private void OnGameOver()
     {
-        Destroy(gameObject);
+        Destroy(this);
     }
 }

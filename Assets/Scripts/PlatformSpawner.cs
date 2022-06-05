@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class PlatformSpawner : MonoBehaviour
@@ -11,7 +12,9 @@ public class PlatformSpawner : MonoBehaviour
     public float spawnDistance;
     public float platformSpeed = 1;
     public float platformLifeTime = 5;  // in seconds
-
+    public float remainingPlatforms = 5;
+    public TextMeshProUGUI remainingPlatformsCounter;
+    
     private void Awake()
     {
         instance = this;
@@ -20,9 +23,11 @@ public class PlatformSpawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (PlayerBounding.instance.boundIsActive && Input.GetKeyDown(KeyCode.Space))
+        if (PlayerBounding.instance.boundIsActive && Input.GetKeyDown(KeyCode.Space) && remainingPlatforms > 0)
         {
             SpawnPlatform();
+            remainingPlatforms--;
+            remainingPlatformsCounter.text = "Platforms: " + remainingPlatforms;
         }
     }
 
