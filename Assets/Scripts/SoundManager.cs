@@ -99,6 +99,4 @@ public class SoundManager : MonoBehaviour
             _source.volume = targetVolume;
         }*/
     }
-    
-    
 }

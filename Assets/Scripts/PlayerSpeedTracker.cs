@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 public class PlayerSpeedTracker : MonoBehaviour
 {
@@ -8,6 +9,7 @@ public class PlayerSpeedTracker : MonoBehaviour
     public ParticleSystem fireSystem;
     public ParticleSystem explosionSystem;
     private Transform myTransform;
+    public UnityEvent gameOverEvent;
 
     public float currentVelocity;
     public float criticalVelocity { get; private set; } = 40;
@@ -80,8 +82,8 @@ public class PlayerSpeedTracker : MonoBehaviour
         if(reachedCriticalVelocity){
             explosionSystem.Play();
             SoundManager.instance.Explode();
+            gameOverEvent.Invoke();
         }
-
     }
 
 }

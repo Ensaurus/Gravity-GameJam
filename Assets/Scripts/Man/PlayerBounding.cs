@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -41,6 +42,11 @@ public class PlayerBounding : MonoBehaviour
         lowerBound = lowerBoundTransform.position.y;
         leftBound = leftBoundTransform.position.x;
         rightBound = rightBoundTransform.position.x;
+    }
+
+    private void Start()
+    {
+        PlayerSpeedTracker.instance.gameOverEvent.AddListener(OnGameOver);
     }
 
     private void OnTriggerEnter(Collider col)
@@ -147,5 +153,10 @@ public class PlayerBounding : MonoBehaviour
         leftTile = rightTile;
         rightTile = oldActive;
         SwitchedActiveTile.Invoke(leftTile);
+    }
+
+    private void OnGameOver()
+    {
+        Destroy(gameObject);
     }
 }
