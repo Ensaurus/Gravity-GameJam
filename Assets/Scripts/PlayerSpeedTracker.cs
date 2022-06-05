@@ -1,5 +1,7 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 public class PlayerSpeedTracker : MonoBehaviour
 {
@@ -83,7 +85,15 @@ public class PlayerSpeedTracker : MonoBehaviour
             explosionSystem.Play();
             SoundManager.instance.Explode();
             gameOverEvent.Invoke();
+            StartCoroutine(gameOver());
         }
+    }
+
+    IEnumerator gameOver()
+    {
+        yield return new WaitForSeconds(5.0f);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+
     }
 
 }
