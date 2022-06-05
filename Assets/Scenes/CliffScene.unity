@@ -1316,6 +1316,10 @@ PrefabInstance:
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5099028307968502051, guid: 60770bdb4dc667c45bea53db0339dc05, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5099028307968502051, guid: 60770bdb4dc667c45bea53db0339dc05, type: 3}
       propertyPath: ColorModule.enabled
       value: 0
       objectReference: {fileID: 0}
@@ -1330,6 +1334,14 @@ PrefabInstance:
     - target: {fileID: 5099028307968502051, guid: 60770bdb4dc667c45bea53db0339dc05, type: 3}
       propertyPath: InitialModule.startColor.maxColor.r
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5099028307968502051, guid: 60770bdb4dc667c45bea53db0339dc05, type: 3}
+      propertyPath: InitialModule.startLifetime.minScalar
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5099028307968502051, guid: 60770bdb4dc667c45bea53db0339dc05, type: 3}
+      propertyPath: InitialModule.startLifetime.minMaxState
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5117486352269505759, guid: 60770bdb4dc667c45bea53db0339dc05, type: 3}
       propertyPath: m_Layer
