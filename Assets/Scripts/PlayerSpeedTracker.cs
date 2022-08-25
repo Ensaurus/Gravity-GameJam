@@ -60,18 +60,12 @@ public class PlayerSpeedTracker : MonoBehaviour
             if (!reachedCriticalVelocity && currentVelocity >= criticalVelocity)
             {
                 fireSystem.Play();
-                explosionSystem.Play();
                 reachedCriticalVelocity = true;
+                SoundManager.instance.StartFire();
             }
             if (NudgeHandler.nudgeUsed == true){
                 nudgeSystem.Play();
             }
-            /*
-            else
-            {
-                ps.Stop();
-            }
-            */
         }
     }
 

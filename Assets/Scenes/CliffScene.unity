@@ -999,6 +999,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 1571500946432574573, guid: 60770bdb4dc667c45bea53db0339dc05, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1625357165036637175, guid: 60770bdb4dc667c45bea53db0339dc05, type: 3}
       propertyPath: m_Layer
       value: 3
@@ -2414,7 +2418,6 @@ GameObject:
   m_Component:
   - component: {fileID: 913433066}
   - component: {fileID: 913433065}
-  - component: {fileID: 913433064}
   - component: {fileID: 913433067}
   m_Layer: 0
   m_Name: Main Camera
@@ -2423,14 +2426,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!81 &913433064
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 913433063}
-  m_Enabled: 1
 --- !u!20 &913433065
 Camera:
   m_ObjectHideFlags: 0
@@ -7918,6 +7913,71 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   frozenAxis: 2
+--- !u!1001 &1445766523
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -4455132768071760989, guid: 4812f764678c9d14f833bd68d83c08d3, type: 3}
+      propertyPath: MaxDistance
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: -4455132768071760989, guid: 4812f764678c9d14f833bd68d83c08d3, type: 3}
+      propertyPath: MinDistance
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5985699698304523316, guid: 4812f764678c9d14f833bd68d83c08d3, type: 3}
+      propertyPath: m_RootOrder
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 5985699698304523316, guid: 4812f764678c9d14f833bd68d83c08d3, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5985699698304523316, guid: 4812f764678c9d14f833bd68d83c08d3, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5985699698304523316, guid: 4812f764678c9d14f833bd68d83c08d3, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5985699698304523316, guid: 4812f764678c9d14f833bd68d83c08d3, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5985699698304523316, guid: 4812f764678c9d14f833bd68d83c08d3, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5985699698304523316, guid: 4812f764678c9d14f833bd68d83c08d3, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5985699698304523316, guid: 4812f764678c9d14f833bd68d83c08d3, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5985699698304523316, guid: 4812f764678c9d14f833bd68d83c08d3, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5985699698304523316, guid: 4812f764678c9d14f833bd68d83c08d3, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5985699698304523316, guid: 4812f764678c9d14f833bd68d83c08d3, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6366588515260221070, guid: 4812f764678c9d14f833bd68d83c08d3, type: 3}
+      propertyPath: m_Name
+      value: seagull_pack_black Variant
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 4812f764678c9d14f833bd68d83c08d3, type: 3}
 --- !u!1001 &1473026118
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8415,6 +8475,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   frozenAxis: 2
+--- !u!81 &1917331367
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1917331361}
+  m_Enabled: 1
 --- !u!1001 &1940209212
 PrefabInstance:
   m_ObjectHideFlags: 0

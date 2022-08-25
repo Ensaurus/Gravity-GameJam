@@ -14,7 +14,6 @@ public class SoundManager : MonoBehaviour
     public AudioClip explosionSound;
     public AudioClip[] collisionSounds;
     public Rigidbody personRigidbody;
-    private bool hasStartedOnFire = false;
 
 
     private void Awake()
@@ -49,13 +48,26 @@ public class SoundManager : MonoBehaviour
     }
 
     public void Explode()
-    { 
-        //_sources[0].Stop();
-        //_sources[1].Stop();
+    {
+        _sources[0].Stop();
+        _sources[1].Stop();
         _sources[2].clip = explosionSound;
+        _sources[2].volume = 0.5f;
         _sources[2].Play();
     }
     
+    public void StartFire()
+    {
+        if (!_sources[2].isPlaying)
+        {
+            _sources[2].clip = fireStartSound;
+            _sources[2].Play();
+        }
+        if (!_sources[1].isPlaying)
+            _sources[1].Play();
+    }
+
+
     // Update is called once per frame
     void Update()
     {
@@ -73,17 +85,5 @@ public class SoundManager : MonoBehaviour
             targetVolume = 1f;
         }
         _sources[0].volume = targetVolume;
-
-        if (velocity > 40f && hasStartedOnFire == false) 
-        {
-            hasStartedOnFire = true;
-            if (!_sources[2].isPlaying)
-            {
-                _sources[2].clip = fireStartSound;
-                _sources[2].Play();
-            }
-            if (!_sources[1].isPlaying)
-                _sources[1].Play();
-        }
     }
 }
