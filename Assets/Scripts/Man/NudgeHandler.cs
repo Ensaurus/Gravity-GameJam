@@ -37,27 +37,22 @@ public class NudgeHandler : MonoBehaviour
         nudgeUsed = false;
         if (ragdollHandler.IsRagdoll)
         {
-            if (UIManager.currentNudges > 0 && UIManager.currentNudges <= UIManager.maxNudges){
-                if (Input.GetKeyDown(KeyCode.A))
-                {
-                    Nudge(direction.left);
-                    nudgeUsed = true;
-                }
-                else if (Input.GetKeyDown(KeyCode.D))
-                {
-                    Nudge(direction.right);
-                    nudgeUsed = true;
-                }
-                else if (Input.GetKeyDown(KeyCode.W))
-                {
-                    Nudge(direction.up);
-                    nudgeUsed = true;
-                }
-                else if (Input.GetKeyDown(KeyCode.S))
-                {
-                    Nudge(direction.down);
-                    nudgeUsed = true;
-                }  
+            if (Input.GetKeyDown(KeyCode.A))
+            {
+                Nudge(direction.left);
+            }
+            else if (Input.GetKeyDown(KeyCode.D))
+            {
+                Nudge(direction.right);
+            }
+            else if (Input.GetKeyDown(KeyCode.W) && UIManager.currentNudges > 0 && UIManager.currentNudges <= UIManager.maxNudges)
+            {
+                Nudge(direction.up);
+                nudgeUsed = true;
+            }
+            else if (Input.GetKeyDown(KeyCode.S))
+            {
+                Nudge(direction.down);
             }
         }
     }

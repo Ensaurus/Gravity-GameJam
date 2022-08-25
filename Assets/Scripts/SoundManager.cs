@@ -15,6 +15,9 @@ public class SoundManager : MonoBehaviour
     public AudioClip[] collisionSounds;
     public Rigidbody personRigidbody;
 
+    public float maxWindVolume = 0.7f;
+    public float fireVolume = 0.7f;
+    public float explosionVolume = 0.5f;
 
     private void Awake()
     {
@@ -52,7 +55,7 @@ public class SoundManager : MonoBehaviour
         _sources[0].Stop();
         _sources[1].Stop();
         _sources[2].clip = explosionSound;
-        _sources[2].volume = 0.5f;
+        _sources[2].volume = explosionVolume;
         _sources[2].Play();
     }
     
@@ -64,6 +67,7 @@ public class SoundManager : MonoBehaviour
             _sources[2].Play();
         }
         if (!_sources[1].isPlaying)
+            _sources[1].volume = fireVolume;
             _sources[1].Play();
     }
 
@@ -72,18 +76,6 @@ public class SoundManager : MonoBehaviour
     void Update()
     {
         float velocity = Mathf.Abs(personRigidbody.velocity.y);
-        float targetVolume = 0f;
-        if (velocity <= 20f)
-        {
-            targetVolume = 0f;
-        } else if (velocity > 20f && velocity < 100f)
-        {
-            targetVolume = (velocity - 20f) / 80f;
-        }
-        else
-        {
-            targetVolume = 1f;
-        }
-        _sources[0].volume = targetVolume;
+        _sources[0].volume = Mathf.Lerp(0, maxWindVolume, velocity / PlayerSpeedTracker.instance.criticalVelocity);
     }
 }
