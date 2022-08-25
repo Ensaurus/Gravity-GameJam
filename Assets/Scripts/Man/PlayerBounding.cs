@@ -151,7 +151,6 @@ public class PlayerBounding : MonoBehaviour
         curMiddle = newMiddle;
         newMiddle = other;
         other = oldMiddle;
-        SwitchedActiveTile.Invoke(leftTile);
     }
 
 
