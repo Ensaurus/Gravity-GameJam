@@ -15,10 +15,23 @@ public class RockController : MonoBehaviour
 
     IEnumerator MoveAway()
     {
-        float timer = 5;
-        while (timer > 0)
+        float timer = 0;
+        float finishTime = 5;
+        Material[] materials = GetComponent<MeshRenderer>().materials;
+        foreach (Material mat in materials)
         {
-            timer -= Time.deltaTime;
+            mat.renderQueue = (int)UnityEngine.Rendering.RenderQueue.Transparent;
+        }
+        Color curColor;
+        while (timer < finishTime)
+        {
+            for (int i=0; i<materials.Length; i++)
+            {
+                curColor = materials[i].color;
+                curColor.a = Mathf.Lerp(1, 0, timer / finishTime);
+                materials[i].color = curColor; 
+            }
+            timer += Time.deltaTime;
             transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z + PlatformSpawner.instance.platformSpeed * Time.deltaTime);
             yield return null;
         }

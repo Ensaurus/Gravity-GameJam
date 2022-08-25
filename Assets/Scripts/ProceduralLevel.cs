@@ -126,9 +126,9 @@ public class ProceduralLevel : MonoBehaviour
         {
             float xPos = Random.Range(0, 2) == 1 ? leftBoundTransform.position.x : rightBoundTransform.position.x;
             float yPos = Random.Range(lowerBoundTransform.position.y, upperBoundTransform.position.y);
-            float zPos = 20;
+            float zPos = -20;
             Vector3 spawnPt = new Vector3(xPos, yPos, zPos);
-            GameObject gull = Instantiate(seagull, spawnPt, Quaternion.identity, transform);
+            GameObject gull = Instantiate(seagull, spawnPt, Quaternion.Euler(0,180,0), transform);
             if (xPos == leftBoundTransform.position.x)
             {
                 gull.GetComponent<SeagullBehavior>().goingRight = true;

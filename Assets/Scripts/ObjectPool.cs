@@ -14,7 +14,7 @@ public class ObjectPool : MonoBehaviour
     {
         for (int i = 0; i < poolDepth; i++)
         {
-            GameObject pooledObject = Instantiate(prefabObject);
+            GameObject pooledObject = Instantiate(prefabObject, transform);
             pooledObject.SetActive(false);
             pool.Add(pooledObject);
         }
@@ -30,7 +30,7 @@ public class ObjectPool : MonoBehaviour
 
         if (canGrow == true)
         {
-            GameObject pooledObject = Instantiate(prefabObject);
+            GameObject pooledObject = Instantiate(prefabObject, transform);
             pooledObject.SetActive(false);
             pool.Add(pooledObject);
 

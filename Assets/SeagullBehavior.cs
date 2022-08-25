@@ -20,8 +20,8 @@ public class SeagullBehavior : MonoBehaviour
     {
         if (state == 0)
         {
-            transform.Translate(0, 0, -Time.deltaTime * speed, Space.World);
-            if (transform.localPosition.z <= -2)
+            transform.Translate(0, 0, Time.deltaTime * speed, Space.World);
+            if (transform.localPosition.z >= -2)
             {
                 if (goingRight)
                 {
@@ -56,7 +56,7 @@ public class SeagullBehavior : MonoBehaviour
         } else if (state == 2)
         {
             transform.Translate(0, 0, Time.deltaTime * speed, Space.World);
-            if (transform.localPosition.z >= 10)
+            if (transform.localPosition.z >= 200)
             {
                 Destroy(gameObject);
             }
