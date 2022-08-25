@@ -21,7 +21,12 @@ public class PlayerBounding : MonoBehaviour
     public GameObject lowerTile;
     public GameObject leftTile;
     public GameObject rightTile;
-    
+    public GameObject upperLeftTile;
+    public GameObject upperRightTile;
+    public GameObject lowerLeftTile;
+    public GameObject lowerRightTile;
+
+
     private float upperBound;
     private float lowerBound;
     private float leftBound;
@@ -69,13 +74,13 @@ public class PlayerBounding : MonoBehaviour
                 playerTransform.position = new Vector3(playerTransform.position.x, upperBound - spawnBuffer, playerTransform.position.z);
                 ShiftUp();
             }
-            /*
+            
             else if (playerTransform.position.y > upperBound)
             {
                 playerTransform.position = new Vector3(playerTransform.position.x, lowerBound + spawnBuffer, playerTransform.position.z);
                 ShiftDown();
             }
-            */
+
             if (playerTransform.position.x < leftBound)
             {
                 playerTransform.position = new Vector3(rightBound - spawnBuffer, playerTransform.position.y, playerTransform.position.z);
@@ -98,64 +103,59 @@ public class PlayerBounding : MonoBehaviour
             hasShiftedUp = true;
             FirstUpwardShift.Invoke();
         }
+        Shift(ref lowerLeftTile, ref leftTile, ref upperLeftTile);
+        Shift(ref lowerTile, ref activeTile, ref upperTile);
+        Shift(ref lowerRightTile, ref rightTile, ref upperRightTile);
 
-        Vector3 activeTilePos = activeTile.transform.position;
-        activeTile.transform.position = upperTile.transform.position;
-        upperTile.transform.position = lowerTile.transform.position;
-        lowerTile.transform.position = activeTilePos;
-
-        GameObject oldActive = activeTile;
-        activeTile = lowerTile;
-        lowerTile = upperTile;
-        upperTile = oldActive;
         SwitchedActiveTile.Invoke(lowerTile);
         ReachedBottomBound.Invoke();
-
-        
     }
 
     private void ShiftDown()
     {
-        Vector3 activeTilePos = activeTile.transform.position;
-        activeTile.transform.position = lowerTile.transform.position;
-        lowerTile.transform.position = upperTile.transform.position;
-        upperTile.transform.position = activeTilePos;
+        Shift(ref upperLeftTile, ref leftTile, ref lowerLeftTile);
+        Shift(ref upperTile, ref activeTile, ref lowerTile);
+        Shift(ref upperRightTile, ref rightTile, ref lowerRightTile);
 
-        GameObject oldActive = activeTile;
-        activeTile = upperTile;
-        upperTile = lowerTile;
-        lowerTile = oldActive;
         SwitchedActiveTile.Invoke(upperTile);
     }
 
     private void ShiftLeft()
     {
-        Vector3 activeTilePos = activeTile.transform.position;
-        activeTile.transform.position = leftTile.transform.position;
-        leftTile.transform.position = rightTile.transform.position;
-        rightTile.transform.position = activeTilePos;
+        Shift(ref upperRightTile, ref upperTile, ref upperLeftTile);
+        Shift(ref rightTile, ref activeTile, ref leftTile);
+        Shift(ref lowerRightTile, ref lowerTile, ref lowerLeftTile);
 
-        GameObject oldActive = activeTile;
-        activeTile = rightTile;
-        rightTile = leftTile;
-        leftTile = oldActive;
         SwitchedActiveTile.Invoke(rightTile);
     }
 
     private void ShiftRight()
     {
-        Vector3 activeTilePos = activeTile.transform.position;
-        activeTile.transform.position = rightTile.transform.position;
-        rightTile.transform.position = leftTile.transform.position;
-        leftTile.transform.position = activeTilePos;
+        Shift(ref upperLeftTile, ref upperTile, ref upperRightTile);
+        Shift(ref leftTile, ref activeTile, ref rightTile);
+        Shift(ref lowerLeftTile, ref lowerTile, ref lowerRightTile);
 
-        GameObject oldActive = activeTile;
-        activeTile = leftTile;
-        leftTile = rightTile;
-        rightTile = oldActive;
         SwitchedActiveTile.Invoke(leftTile);
     }
 
+
+    private void Shift(ref GameObject newMiddle, ref GameObject curMiddle, ref GameObject other)
+    {
+        // move transforms
+        Vector3 middleTilePos = curMiddle.transform.position;
+        curMiddle.transform.position = other.transform.position;
+        other.transform.position = newMiddle.transform.position;
+        newMiddle.transform.position = middleTilePos;
+        // change fields (references)
+        GameObject oldMiddle = curMiddle;
+        curMiddle = newMiddle;
+        newMiddle = other;
+        other = oldMiddle;
+        SwitchedActiveTile.Invoke(leftTile);
+    }
+
+
+    // to remove bounds, so body doesn't fly around
     private void OnGameOver()
     {
         Destroy(this);

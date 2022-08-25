@@ -85,18 +85,5 @@ public class SoundManager : MonoBehaviour
             if (!_sources[1].isPlaying)
                 _sources[1].Play();
         }
-
-
-        /*if (Mathf.Abs(targetVolume - currentVolume) > Time.deltaTime)
-        {
-            if (targetVolume > currentVolume)
-                _source.volume += Time.deltaTime;
-            else
-                _source.volume -= Time.deltaTime;
-        }
-        else
-        {
-            _source.volume = targetVolume;
-        }*/
     }
 }

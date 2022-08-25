@@ -129,9 +129,15 @@ public class ProceduralLevel : MonoBehaviour
     {
         if (Time.unscaledTime > lastSpawnTime + seagullRandomSpawnTime)
         {
-            Instantiate(seagull, new Vector3(0, 
-                    Random.Range(lowerBoundTransform.position.y, upperBoundTransform.position.y), 0), 
-                Quaternion.identity, transform);
+            float xPos = Random.Range(0, 2) == 1 ? leftBoundTransform.position.x : rightBoundTransform.position.x;
+            float yPos = Random.Range(lowerBoundTransform.position.y, upperBoundTransform.position.y);
+            float zPos = 20;
+            Vector3 spawnPt = new Vector3(xPos, yPos, zPos);
+            GameObject gull = Instantiate(seagull, spawnPt, Quaternion.identity, transform);
+            if (xPos == leftBoundTransform.position.x)
+            {
+                gull.GetComponent<SeagullBehavior>().goingRight = true;
+            }
             seagullRandomSpawnTime = Random.Range(5f, 10f);
             lastSpawnTime = Time.unscaledTime;
         }

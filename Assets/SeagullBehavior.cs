@@ -12,17 +12,8 @@ public class SeagullBehavior : MonoBehaviour
     public float tileEdge;
 
     private float speed = 5.0f;
-    // Start is called before the first frame update
-    void Start()
-    {
-        transform.localPosition = new Vector3((tileWidth / 2), 
-            transform.localPosition.y, 10);
-        if (Random.value > 0.7)
-        {
-            GetComponent<AudioSource>().time = Random.Range(0f, 15f);
-            GetComponent<AudioSource>().Play();
-        }
-    }
+
+    public bool goingRight = false;
 
     // Update is called once per frame
     void Update()
@@ -32,16 +23,35 @@ public class SeagullBehavior : MonoBehaviour
             transform.Translate(0, 0, -Time.deltaTime * speed, Space.World);
             if (transform.localPosition.z <= -2)
             {
-                transform.rotation = Quaternion.Euler(0, 90, 0);
+                if (goingRight)
+                {
+                    transform.rotation = Quaternion.Euler(0, -90, 0);
+                }
+                else
+                {
+                    transform.rotation = Quaternion.Euler(0, 90, 0);
+                }
                 state = 1;
             }
         } else if (state == 1)
         {
-            transform.Translate(-Time.deltaTime * speed, 0, 0, Space.World);
-            if (transform.localPosition.x <= -tileWidth/2)
+            if (goingRight)
             {
-                transform.rotation = Quaternion.Euler(0, 180, 0);
-                state = 2;
+                transform.Translate(Time.deltaTime * speed, 0, 0, Space.World);
+                if (transform.localPosition.x >= tileWidth / 2)
+                {
+                    transform.rotation = Quaternion.Euler(0, 180, 0);
+                    state = 2;
+                }
+            }
+            else
+            {
+                transform.Translate(-Time.deltaTime * speed, 0, 0, Space.World);
+                if (transform.localPosition.x <= -tileWidth / 2)
+                {
+                    transform.rotation = Quaternion.Euler(0, 180, 0);
+                    state = 2;
+                }
             }
         } else if (state == 2)
         {
@@ -52,10 +62,4 @@ public class SeagullBehavior : MonoBehaviour
             }
         }
     }
-
-    /*private void OnCollisionStay(Collision collisionInfo)
-    {
-        Debug.Log("Collision!");
-        Destroy(gameObject);
-    }*/
 }
