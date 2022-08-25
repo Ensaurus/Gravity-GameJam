@@ -64,8 +64,7 @@ public class PlayerBounding : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         if (boundIsActive)
         {
@@ -107,7 +106,10 @@ public class PlayerBounding : MonoBehaviour
         Shift(ref lowerTile, ref activeTile, ref upperTile);
         Shift(ref lowerRightTile, ref rightTile, ref upperRightTile);
 
+        // the tiles off screen now
+        SwitchedActiveTile.Invoke(lowerLeftTile);
         SwitchedActiveTile.Invoke(lowerTile);
+        SwitchedActiveTile.Invoke(lowerRightTile);
         ReachedBottomBound.Invoke();
     }
 
@@ -117,7 +119,9 @@ public class PlayerBounding : MonoBehaviour
         Shift(ref upperTile, ref activeTile, ref lowerTile);
         Shift(ref upperRightTile, ref rightTile, ref lowerRightTile);
 
+        SwitchedActiveTile.Invoke(upperLeftTile);
         SwitchedActiveTile.Invoke(upperTile);
+        SwitchedActiveTile.Invoke(upperRightTile);
     }
 
     private void ShiftLeft()
@@ -126,7 +130,9 @@ public class PlayerBounding : MonoBehaviour
         Shift(ref rightTile, ref activeTile, ref leftTile);
         Shift(ref lowerRightTile, ref lowerTile, ref lowerLeftTile);
 
+        SwitchedActiveTile.Invoke(upperRightTile);
         SwitchedActiveTile.Invoke(rightTile);
+        SwitchedActiveTile.Invoke(lowerRightTile);
     }
 
     private void ShiftRight()
@@ -135,7 +141,9 @@ public class PlayerBounding : MonoBehaviour
         Shift(ref leftTile, ref activeTile, ref rightTile);
         Shift(ref lowerLeftTile, ref lowerTile, ref lowerRightTile);
 
+        SwitchedActiveTile.Invoke(upperLeftTile);
         SwitchedActiveTile.Invoke(leftTile);
+        SwitchedActiveTile.Invoke(lowerLeftTile);
     }
 
 

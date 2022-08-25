@@ -1,8 +1,5 @@
-using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.UI;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class ProceduralLevel : MonoBehaviour
 {
@@ -45,7 +42,6 @@ public class ProceduralLevel : MonoBehaviour
         GameObject newObject = cliffObjectsPool.GetRandomObject();
         newObject.transform.position = newSpawnPos;
         newObject.transform.rotation = Quaternion.Euler(-90f, 0f, 0f);
-        newObject.AddComponent<MeshCollider>();
        
         // whyyyyyy
         if (Random.value > 0.5)
@@ -114,7 +110,6 @@ public class ProceduralLevel : MonoBehaviour
             GameObject newObject = cliffObjectsPool.GetRandomObject();
             newObject.transform.position = spawnPos;
             newObject.transform.rotation = Quaternion.Euler(-90f, 0f, 0f);
-            newObject.AddComponent<MeshCollider>();
             
             // whyyyyyy
             // for flipping orientation :)
