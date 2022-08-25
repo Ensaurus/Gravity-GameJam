@@ -18,10 +18,6 @@ public class RockController : MonoBehaviour
         float timer = 0;
         float finishTime = 5;
         Material[] materials = GetComponent<MeshRenderer>().materials;
-        foreach (Material mat in materials)
-        {
-            mat.renderQueue = (int)UnityEngine.Rendering.RenderQueue.Transparent;
-        }
         Color curColor;
         while (timer < finishTime)
         {
@@ -36,5 +32,11 @@ public class RockController : MonoBehaviour
             yield return null;
         }
         gameObject.SetActive(false);
+        for (int i = 0; i < materials.Length; i++)
+        {
+            curColor = materials[i].color;
+            curColor.a = 1;
+            materials[i].color = curColor;
+        }
     }
 }
