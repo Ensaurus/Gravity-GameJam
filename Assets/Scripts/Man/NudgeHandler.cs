@@ -14,6 +14,7 @@ public class NudgeHandler : MonoBehaviour
     public bool nudgeUsed = false;
     public float maxNudge;
     public float currentNudges;
+    public ParticleSystem nudgeSystem;
 
     private enum direction
     {
@@ -76,5 +77,6 @@ public class NudgeHandler : MonoBehaviour
             default:
                 break;
         }
+        nudgeSystem.Play();
     }         
 }

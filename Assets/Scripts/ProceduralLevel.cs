@@ -7,8 +7,8 @@ public class ProceduralLevel : MonoBehaviour
     public Transform playerTransform;
     public float spawnRadius = 10;
 
-    public GameObject seagull;
     // public GameObject[] cliffObjects;
+    private ObjectPool seagullPool;
     private List<GameObject> spawnedObjects = new List<GameObject>();
     private float playerStartYPos = 0.0f;
     private float lastSpawnTime = 0f;
@@ -53,7 +53,7 @@ public class ProceduralLevel : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        seagullPool = gameObject.GetComponent<ObjectPool>();
         cliffObjectsPool = gameObject.GetComponent<PoolAnArray>();
         SpawnInBox(leftBoundTransform.position.x,
             rightBoundTransform.position.x,
@@ -128,11 +128,15 @@ public class ProceduralLevel : MonoBehaviour
             float yPos = Random.Range(lowerBoundTransform.position.y, upperBoundTransform.position.y);
             float zPos = -20;
             Vector3 spawnPt = new Vector3(xPos, yPos, zPos);
-            GameObject gull = Instantiate(seagull, spawnPt, Quaternion.Euler(0,180,0), transform);
+            GameObject gull = seagullPool.GetAvailableObject(); 
+            // Instantiate(seagull, spawnPt, Quaternion.Euler(0,180,0), transform);
+            gull.transform.position = spawnPt;
+            gull.transform.rotation = Quaternion.Euler(0, 180, 0);
             if (xPos == leftBoundTransform.position.x)
             {
                 gull.GetComponent<SeagullBehavior>().goingRight = true;
             }
+            gull.SetActive(true);
             seagullRandomSpawnTime = Random.Range(5f, 10f);
             lastSpawnTime = Time.unscaledTime;
         }

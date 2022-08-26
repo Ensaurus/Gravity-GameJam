@@ -58,7 +58,7 @@ public class SeagullBehavior : MonoBehaviour
             transform.Translate(0, 0, Time.deltaTime * speed, Space.World);
             if (transform.localPosition.z >= 200)
             {
-                Destroy(gameObject);
+                gameObject.SetActive(false);
             }
         }
     }

@@ -43,6 +43,7 @@ public class PlayerSpeedTracker : MonoBehaviour
     {
         PlayerBounding.instance.PlayerEnteredBound.AddListener(StartTracking);
         PlayerBounding.instance.ReachedBottomBound.AddListener(UpdateLoggedDepth);
+        gameOverEvent.AddListener(OnGameOver);
         lengthOfTile = Vector3.Distance(PlayerBounding.instance.upperBoundTransform.position, PlayerBounding.instance.lowerBoundTransform.position);
         reachedCriticalVelocity = false;
         rb = GetComponent<Rigidbody>();
@@ -63,8 +64,11 @@ public class PlayerSpeedTracker : MonoBehaviour
                 reachedCriticalVelocity = true;
                 SoundManager.instance.StartFire();
             }
-            if (NudgeHandler.nudgeUsed == true){
-                nudgeSystem.Play();
+            else if(reachedCriticalVelocity && currentVelocity < criticalVelocity)
+            {
+                fireSystem.Stop();
+                reachedCriticalVelocity = false;
+                SoundManager.instance.StopFire();
             }
         }
     }
@@ -85,6 +89,11 @@ public class PlayerSpeedTracker : MonoBehaviour
             SoundManager.instance.Explode();
             gameOverEvent.Invoke();
         }
+    }
+
+    private void OnGameOver()
+    {
+        tracking = false;
     }
 
 }

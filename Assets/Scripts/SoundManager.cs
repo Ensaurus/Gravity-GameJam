@@ -71,6 +71,11 @@ public class SoundManager : MonoBehaviour
             _sources[1].Play();
     }
 
+    public void StopFire()
+    {
+        _sources[1].Stop();
+    }
+
 
     // Update is called once per frame
     void Update()

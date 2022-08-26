@@ -187,6 +187,7 @@ GameObject:
   - component: {fileID: 6401759241594114845}
   - component: {fileID: 2415841000510597726}
   - component: {fileID: 2386724291149603262}
+  - component: {fileID: 3219095251177863463}
   m_Layer: 6
   m_Name: Tile
   m_TagString: Untagged
@@ -225,11 +226,13 @@ MonoBehaviour:
   maxObjects: 100
   playerTransform: {fileID: 0}
   spawnRadius: 10
+  seagull: {fileID: 0}
   upperBoundTransform: {fileID: 4695233721776864460}
   lowerBoundTransform: {fileID: 3050054269215467048}
   leftBoundTransform: {fileID: 9212103291734568918}
   rightBoundTransform: {fileID: 3092722746217587047}
   offset: 0
+  seagullSpawnAttempts: 0
 --- !u!114 &2386724291149603262
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -247,6 +250,21 @@ MonoBehaviour:
   - {fileID: -516098083770646512, guid: eaeb265c2c49d2944977afc71e24f3d8, type: 3}
   - {fileID: 8416272007918961125, guid: eaeb265c2c49d2944977afc71e24f3d8, type: 3}
   poolDepth: 50
+  canGrow: 1
+--- !u!114 &3219095251177863463
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6401759241594114847}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb1625a7794d6d747a0d64d0ac38282f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefabObject: {fileID: 6366588515260221070, guid: 4812f764678c9d14f833bd68d83c08d3, type: 3}
+  poolDepth: 20
   canGrow: 1
 --- !u!1 &7407657927517465983
 GameObject:

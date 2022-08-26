@@ -5,6 +5,22 @@ public class RockController : MonoBehaviour
 {
     Coroutine activeCoroutine;
 
+    private void Start()
+    {
+        // avoid clipping
+        GetComponent<MeshRenderer>().materials[0].renderQueue = 3001;
+    }
+    private void OnEnable()
+    {
+        Material[] materials = GetComponent<MeshRenderer>().materials;
+        for (int i = 0; i < materials.Length; i++)
+        {
+            Color curColor = materials[i].color;
+            curColor.a = 1;
+            materials[i].color = curColor;
+        }
+    }
+
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.tag == "Player" && activeCoroutine == null)
@@ -32,11 +48,5 @@ public class RockController : MonoBehaviour
             yield return null;
         }
         gameObject.SetActive(false);
-        for (int i = 0; i < materials.Length; i++)
-        {
-            curColor = materials[i].color;
-            curColor.a = 1;
-            materials[i].color = curColor;
-        }
     }
 }

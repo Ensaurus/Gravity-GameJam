@@ -9,7 +9,7 @@ public class UIManager : MonoBehaviour
 {
     public GameObject tutorialText;
     public TextMeshProUGUI score;
-    public GameObject gameOverText;
+    public TextMeshProUGUI gameOverText;
     public Button restartButton;
     public GameObject speedometer;
     public Transform speedometerNeedle;
@@ -21,7 +21,7 @@ public class UIManager : MonoBehaviour
     public float timeForNudge = 3f;
     private float currentNudgeTime = 0f;
     private float fillAmountNudgeBar = 0f;
-    public TextMeshProUGUI nudgeCounter;
+    // public TextMeshProUGUI nudgeCounter;
     public GameObject nudgeUI;
     public Image nudgeMask;
     [SerializeField] private const float NEEDLE_MIN_ROTATION = 4.47f;
@@ -29,11 +29,13 @@ public class UIManager : MonoBehaviour
 
     private bool speedometerMaxed;
     private bool gameRunning;
+    public GameObject gameOverScreen;
 
 
     // Start is called before the first frame update
     void Start()
     {
+        gameOverScreen.SetActive(false);
         gameRunning = false;
         score.gameObject.SetActive(false);
         speedometer.SetActive(false);
@@ -65,6 +67,14 @@ public class UIManager : MonoBehaviour
 
     private void SetNeedleRotation()
     {
+        if (speedometerMaxed)
+        {
+            if (!PlayerSpeedTracker.instance.reachedCriticalVelocity)
+            {
+                speedometerNeedle.GetComponent<Animation>().Rewind();
+                speedometerMaxed = false;
+            }
+        }
         if (!speedometerMaxed)
         {
             float normalizedSpeed = PlayerSpeedTracker.instance.currentVelocity / PlayerSpeedTracker.instance.criticalVelocity;
@@ -80,7 +90,7 @@ public class UIManager : MonoBehaviour
     }
 
     void GetCurrentNudgeFill(){
-        nudgeCounter.text = currentNudges.ToString("F0");
+        // nudgeCounter.text = currentNudges.ToString("F0");
         
         if (currentNudges < maxNudges){
             currentNudgeTime += Time.deltaTime;
@@ -101,15 +111,16 @@ public class UIManager : MonoBehaviour
             if (NudgeHandler.nudgeUsed == true){
                 Debug.Log("Nudge used.");
                 currentNudges -= 1;
-                nudgeCounter.text = currentNudges.ToString("F0");
+                // nudgeCounter.text = currentNudges.ToString("F0");
             }
         }
-        nudgeCounter.text = currentNudges.ToString("F0");
+        // nudgeCounter.text = currentNudges.ToString("F0");
     }
 
     private void OnGameOver()
     {
-        gameOverText.SetActive(true);
+        gameOverText.text = "Depth: " + PlayerSpeedTracker.instance.DepthTravelled.ToString("F0");
+        gameOverScreen.SetActive(true);
         restartButton.gameObject.SetActive(true);
     }
 
