@@ -6,7 +6,9 @@ using UnityEngine.Events;
 
 public class IntroManager : MonoBehaviour
 {
+    public static IntroManager instance { get;  private set; }
     public bool runningTutorial;
+    private bool waitingForJump;
     public UnityEvent StartGame;
     public TextMeshProUGUI introTutorialText;
     public float runTutorialSpeed;
@@ -15,9 +17,27 @@ public class IntroManager : MonoBehaviour
 
     private Coroutine activeTutorial;
 
-    // Start is called before the first frame update
+    public bool doingTutorial = true;
+
+    public GameObject nudgeUI;
+    public GameObject platformUI;
+    public GameObject speedometerUI;
+
+    private void Awake()
+    {
+        if (instance != null && instance != this)
+        {
+            Destroy(this);
+        }
+        else
+        {
+            instance = this;
+        }
+    }
+
     void Start()
     {
+        waitingForJump = true;
         runningTutorial = true;
         introTutorialText.color = Color.black;
         introTutorialText.text = "Hold D to run.";
@@ -27,6 +47,14 @@ public class IntroManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Space) && waitingForJump)
+        {
+            StopAllCoroutines();
+            runningTutorial = false;
+            waitingForJump = false;
+            StartGame.Invoke();
+            introTutorialText.gameObject.SetActive(false);
+        }
         if (runningTutorial && Input.GetKey(KeyCode.D))
         {
             introTutorialText.alpha -= Time.deltaTime * runTutorialSpeed;
@@ -46,25 +74,36 @@ public class IntroManager : MonoBehaviour
         yield return new WaitForSeconds(3);
         introTutorialText.text = "Press Space to Jump!";
         introTutorialText.color = Color.red;
-        while (true)
-        {
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                StartGame.Invoke();
-                introTutorialText.gameObject.SetActive(false);
-                break;
-            }
-            yield return null;
-        }
+        yield return null;
     }
 
     public void StartActualTutorial()
     {
-        // Debug.Log("starting tutorial");
-        if (activeTutorial == null)
+        if (activeTutorial == null && doingTutorial)
         {
             activeTutorial = StartCoroutine(ActualTutorial());
         }   
+        else if (activeTutorial == null && !doingTutorial) 
+        {
+            activeTutorial = StartCoroutine(SkippingTutorial());
+        }
+    }
+
+    IEnumerator SkippingTutorial()
+    {
+        introTutorialText.color = Color.black;
+        introTutorialText.text = "";
+        introTutorialText.gameObject.SetActive(true);
+        tutorialFinished.Invoke();
+        for (int i = 3; i > 0; i--)
+        {
+            yield return new WaitForSeconds(1f);
+            introTutorialText.text = i.ToString();
+        }
+        yield return new WaitForSeconds(1f);
+        introTutorialText.text = "GOOD LUCK!";
+        yield return new WaitForSeconds(1);
+        introTutorialText.gameObject.SetActive(false);
     }
 
     IEnumerator ActualTutorial()
@@ -81,25 +120,33 @@ public class IntroManager : MonoBehaviour
 
         yield return new WaitForSeconds(3);
 
-        introTutorialText.text = "Oh well.\nUse WASD to nudge yourself. Give it a try.";
-
-        int nudgeCounter = 0; 
+        int nudgesRequired = 10;
+        introTutorialText.text = "Oh well.\nUse WASD to nudge yourself. Give it a try. \n" + nudgesRequired;
+        
         while (true)
         {
             if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.D))
             {
-                nudgeCounter += 1;
-                if (nudgeCounter > 10)
+                nudgesRequired--;
+                introTutorialText.text = "Oh well.\nUse WASD to nudge yourself. Give it a try. \n" + nudgesRequired;
+                if (nudgesRequired <= 0)
                 {
                     break;
                 }
             }
             yield return null;
         }
+        introTutorialText.text = "Nice!";
         yield return new WaitForSeconds(2);
 
+        introTutorialText.text = "Note you can only nudge up every once in a while.";
+        yield return StartCoroutine(UIManager.instance.HighlightUI(nudgeUI, 5));
+
         introTutorialText.text = "Also, while falling, use spacebar to smack yourself into a platform like this.";
-        yield return new WaitForSeconds(5);
+        yield return StartCoroutine(UIManager.instance.HighlightUI(platformUI, 5));
+
+        introTutorialText.text = "Try not to go too fast...";
+        yield return StartCoroutine(UIManager.instance.HighlightUI(speedometerUI, 5));
 
         introTutorialText.text = "See how low you can go";
         tutorialFinished.Invoke();

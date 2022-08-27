@@ -4,20 +4,24 @@ using UnityEngine;
 public class RockController : MonoBehaviour
 {
     Coroutine activeCoroutine;
-
+    /*
     private void Start()
     {
         // avoid clipping
         GetComponent<MeshRenderer>().materials[0].renderQueue = 3001;
     }
+    */
+
     private void OnEnable()
     {
+        activeCoroutine = null;
         Material[] materials = GetComponent<MeshRenderer>().materials;
         for (int i = 0; i < materials.Length; i++)
         {
             Color curColor = materials[i].color;
             curColor.a = 1;
             materials[i].color = curColor;
+            MaterialExtensions.ToOpaqueMode(materials[i]);
         }
     }
 
@@ -34,13 +38,18 @@ public class RockController : MonoBehaviour
         float timer = 0;
         float finishTime = 5;
         Material[] materials = GetComponent<MeshRenderer>().materials;
+        foreach (Material material in materials)
+        {
+            // fade
+            MaterialExtensions.ToFadeMode(material);
+        }
         Color curColor;
         while (timer < finishTime)
         {
             for (int i=0; i<materials.Length; i++)
             {
                 curColor = materials[i].color;
-                curColor.a = Mathf.Lerp(1, 0, timer / finishTime);
+                curColor.a = Mathf.Lerp(1, 0, Mathf.Pow(timer, 2) / Mathf.Pow(finishTime, 2));
                 materials[i].color = curColor; 
             }
             timer += Time.deltaTime;

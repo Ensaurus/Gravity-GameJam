@@ -53,7 +53,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: b07d6ec443e5bb94384648930c3b8922, type: 3}
       propertyPath: m_Name
-      value: platform_collectible
+      value: platform_collectible Variant
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b07d6ec443e5bb94384648930c3b8922, type: 3}
@@ -74,3 +74,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dac29513fd6fea54e904d1cf8fe8dcb8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!136 &129725144
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4502468297430774867}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.0100946305
+  m_Height: 0.031331815
+  m_Direction: 1
+  m_Center: {x: 0.00008028745, y: 0.000028731296, z: 0.0027514566}

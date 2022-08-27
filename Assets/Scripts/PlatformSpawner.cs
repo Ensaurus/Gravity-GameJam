@@ -12,12 +12,17 @@ public class PlatformSpawner : MonoBehaviour
     public float spawnDistance;
     public float platformSpeed = 1;
     public float platformLifeTime = 5;  // in seconds
-    public float remainingPlatforms = 5;
+    public float remainingPlatforms = 3;
     public TextMeshProUGUI remainingPlatformsCounter;
-    
+    private Color originalCol;
+    private Vector3 originalSize;
+
     private void Awake()
     {
+        originalCol = remainingPlatformsCounter.color;
+        originalSize = remainingPlatformsCounter.transform.localScale;
         instance = this;
+        remainingPlatformsCounter.text = "Platforms: " + remainingPlatforms;
     }
 
     // Update is called once per frame
@@ -27,6 +32,9 @@ public class PlatformSpawner : MonoBehaviour
         {
             SpawnPlatform();
             remainingPlatforms--;
+            StopAllCoroutines();
+            remainingPlatformsCounter.color = originalCol;
+            remainingPlatformsCounter.transform.localScale = originalSize;
             remainingPlatformsCounter.text = "Platforms: " + remainingPlatforms;
         }
     }
@@ -37,11 +45,27 @@ public class PlatformSpawner : MonoBehaviour
         float spawnY = playerTransform.position.y - spawnDistance;
         if (spawnY < lowerBound)
         {
-            float upperBound = PlayerBounding.instance.upperBoundTransform.position.y;
+            float upperBound = PlayerBounding.instance.upperBoundTransform.position.y - PlayerBounding.instance.spawnBuffer;
             float extraLength = lowerBound - spawnY;
             spawnY = upperBound - extraLength;
         }
         // just using upperBound Transform x as midpoint of tile
         Instantiate(platform, new Vector3(PlayerBounding.instance.upperBoundTransform.position.x, spawnY, playerTransform.position.z), Quaternion.Euler(-90, 0, 0));
+    }
+
+    public void AddPlatformToAvailable()
+    {
+        remainingPlatforms++;
+        remainingPlatformsCounter.text = "Platforms: " + remainingPlatforms;
+        StopAllCoroutines();
+        remainingPlatformsCounter.transform.localScale = originalSize;
+        StartCoroutine(Highlight());
+    }
+
+    IEnumerator Highlight()
+    {        
+        remainingPlatformsCounter.color = Color.green;
+        yield return StartCoroutine(UIManager.instance.HighlightUI(remainingPlatformsCounter.gameObject, 5));
+        remainingPlatformsCounter.color = originalCol;
     }
 }

@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour
 {
+    public static UIManager instance { get; private set; }
     public GameObject tutorialText;
     public TextMeshProUGUI score;
     public TextMeshProUGUI gameOverText;
@@ -23,6 +24,7 @@ public class UIManager : MonoBehaviour
     private float fillAmountNudgeBar = 0f;
     // public TextMeshProUGUI nudgeCounter;
     public GameObject nudgeUI;
+    public GameObject platformsUI;
     public Image nudgeMask;
     [SerializeField] private const float NEEDLE_MIN_ROTATION = 4.47f;
     [SerializeField] private const float NEEDLE_MAX_ROTATION = -183.77f;
@@ -31,16 +33,32 @@ public class UIManager : MonoBehaviour
     private bool gameRunning;
     public GameObject gameOverScreen;
 
+    private Vector3 initialSpeedometerScale;
+    private Vector3 originalNudgeScale;
+
+    private void Awake()
+    {
+        if (instance != null && instance != this)
+        {
+            Destroy(this);
+        }
+        else
+        {
+            instance = this;
+        }
+    }
 
     // Start is called before the first frame update
     void Start()
     {
+        originalNudgeScale = nudgeUI.transform.localScale;
+        initialSpeedometerScale = speedometer.transform.localScale;
+        platformsUI.SetActive(false);
         gameOverScreen.SetActive(false);
         gameRunning = false;
         score.gameObject.SetActive(false);
         speedometer.SetActive(false);
         nudgeUI.SetActive(false);
-        PlayerBounding.instance.PlayerEnteredBound.AddListener(EnteredBoundHandler);    
         PlayerBounding.instance.PlayerEnteredBound.AddListener(EnteredBoundHandler);
         PlayerSpeedTracker.instance.gameOverEvent.AddListener(OnGameOver);
         restartButton.onClick.AddListener(ResetScene);
@@ -48,6 +66,7 @@ public class UIManager : MonoBehaviour
 
     private void EnteredBoundHandler()
     {
+        platformsUI.SetActive(true);
         speedometer.SetActive(true);
         score.gameObject.SetActive(true);
         nudgeUI.SetActive(true);
@@ -59,10 +78,17 @@ public class UIManager : MonoBehaviour
     {
         if (gameRunning)
         {
+            SetSpeedometerSize();
             SetNeedleRotation();
             GetCurrentNudgeFill();
             score.text = PlayerSpeedTracker.instance.DepthTravelled.ToString("F0");
         }
+    }
+
+    private void SetSpeedometerSize()
+    {
+        float normalizedSpeed = PlayerSpeedTracker.instance.currentVelocity / PlayerSpeedTracker.instance.criticalVelocity;
+        speedometer.transform.localScale = Vector3.Lerp(initialSpeedometerScale, initialSpeedometerScale + Vector3.one, normalizedSpeed);
     }
 
     private void SetNeedleRotation()
@@ -73,6 +99,7 @@ public class UIManager : MonoBehaviour
             {
                 speedometerNeedle.GetComponent<Animation>().Rewind();
                 speedometerMaxed = false;
+                speedometerFire.Stop();
             }
         }
         if (!speedometerMaxed)
@@ -99,6 +126,7 @@ public class UIManager : MonoBehaviour
                 currentNudges += 1;
                 fillAmountNudgeBar = 0;
                 currentNudgeTime = 0;
+                StartCoroutine(HighlightUI(nudgeUI, 2));
             }
             nudgeMask.fillAmount = fillAmountNudgeBar;
         }
@@ -106,20 +134,24 @@ public class UIManager : MonoBehaviour
             fillAmountNudgeBar = 1;
             nudgeMask.fillAmount = fillAmountNudgeBar;
         }
-
-        if (currentNudges > 0){
-            if (NudgeHandler.nudgeUsed == true){
-                Debug.Log("Nudge used.");
-                currentNudges -= 1;
-                // nudgeCounter.text = currentNudges.ToString("F0");
-            }
-        }
         // nudgeCounter.text = currentNudges.ToString("F0");
+    }
+
+    // called by event
+    public void DecreaseCurrentNudges()
+    {
+        if (currentNudges > 0)
+        {
+            Debug.Log("Nudge used.");
+            currentNudges -= 1;
+            nudgeUI.transform.localScale = originalNudgeScale;
+            StopAllCoroutines();
+        }
     }
 
     private void OnGameOver()
     {
-        gameOverText.text = "Depth: " + PlayerSpeedTracker.instance.DepthTravelled.ToString("F0");
+        gameOverText.text = "Depth:\n" + PlayerSpeedTracker.instance.DepthTravelled.ToString("F0");
         gameOverScreen.SetActive(true);
         restartButton.gameObject.SetActive(true);
     }
@@ -127,5 +159,21 @@ public class UIManager : MonoBehaviour
     private void ResetScene()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    public IEnumerator HighlightUI(GameObject ui, float time)
+    {
+        ui.SetActive(true);
+        Vector3 startingSize = ui.transform.localScale;
+        float timer = 0;
+        while (timer < time)
+        {
+            float periodInSeconds = 0.5f;
+            float lerpAmount = 0.5f * Mathf.Cos(2 * Mathf.PI / periodInSeconds * timer + Mathf.PI) + 0.5f;
+            ui.transform.localScale = Vector3.Lerp(startingSize, startingSize + Vector3.one * 0.5f, lerpAmount);
+            timer += Time.deltaTime;
+            yield return null;
+        }
+        ui.transform.localScale = startingSize;
     }
 }

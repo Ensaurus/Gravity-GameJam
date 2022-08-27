@@ -226,11 +226,11 @@ MonoBehaviour:
   maxObjects: 100
   playerTransform: {fileID: 0}
   spawnRadius: 10
-  seagull: {fileID: 0}
   upperBoundTransform: {fileID: 4695233721776864460}
   lowerBoundTransform: {fileID: 3050054269215467048}
   leftBoundTransform: {fileID: 9212103291734568918}
   rightBoundTransform: {fileID: 3092722746217587047}
+  platformCollectible: {fileID: 4502468297430774867, guid: b2cddd90630a8774f8aedfde4a5cb6ec, type: 3}
   offset: 0
   seagullSpawnAttempts: 0
 --- !u!114 &2386724291149603262

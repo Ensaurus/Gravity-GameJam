@@ -15,13 +15,18 @@ public class SeagullBehavior : MonoBehaviour
 
     public bool goingRight = false;
 
+    private void OnEnable()
+    {
+        state = 0;
+    }
+
     // Update is called once per frame
     void Update()
     {
         if (state == 0)
         {
             transform.Translate(0, 0, Time.deltaTime * speed, Space.World);
-            if (transform.localPosition.z >= -2)
+            if (transform.localPosition.z > -2)
             {
                 if (goingRight)
                 {
@@ -55,6 +60,8 @@ public class SeagullBehavior : MonoBehaviour
             }
         } else if (state == 2)
         {
+            // keep this gull relative to currently active tile
+            transform.parent = PlayerBounding.instance.activeTile.transform;
             transform.Translate(0, 0, Time.deltaTime * speed, Space.World);
             if (transform.localPosition.z >= 200)
             {

@@ -1,8 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-
+using UnityEngine.Events;
 
 public class NudgeHandler : MonoBehaviour
 {
@@ -11,7 +10,7 @@ public class NudgeHandler : MonoBehaviour
     public Rigidbody target;
     public float nudgeStrength = 50;
     public UIManager UIManager;
-    public bool nudgeUsed = false;
+    // public UnityEvent nudgeUsed;
     public float maxNudge;
     public float currentNudges;
     public ParticleSystem nudgeSystem;
@@ -27,7 +26,6 @@ public class NudgeHandler : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        nudgeUsed = false;
         // ragdollParts = gameObject.GetComponentsInChildren<Rigidbody>();
         ragdollHandler = GetComponent<RagdollHandler>();
     }
@@ -35,7 +33,6 @@ public class NudgeHandler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        nudgeUsed = false;
         if (ragdollHandler.IsRagdoll)
         {
             if (Input.GetKeyDown(KeyCode.A))
@@ -49,7 +46,8 @@ public class NudgeHandler : MonoBehaviour
             else if (Input.GetKeyDown(KeyCode.W) && UIManager.currentNudges > 0 && UIManager.currentNudges <= UIManager.maxNudges)
             {
                 Nudge(direction.up);
-                nudgeUsed = true;
+                // nudgeUsed.Invoke();
+                UIManager.DecreaseCurrentNudges();
             }
             else if (Input.GetKeyDown(KeyCode.S))
             {

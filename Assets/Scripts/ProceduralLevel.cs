@@ -10,6 +10,7 @@ public class ProceduralLevel : MonoBehaviour
     // public GameObject[] cliffObjects;
     private ObjectPool seagullPool;
     private List<GameObject> spawnedObjects = new List<GameObject>();
+    private List<GameObject> spawnedCollectibles = new List<GameObject>();
     private float playerStartYPos = 0.0f;
     private float lastSpawnTime = 0f;
     private float seagullRandomSpawnTime;
@@ -20,6 +21,8 @@ public class ProceduralLevel : MonoBehaviour
     public Transform lowerBoundTransform;
     public Transform leftBoundTransform;
     public Transform rightBoundTransform;
+
+    public GameObject platformCollectible;
 
     public float offset = 0;
 
@@ -90,23 +93,26 @@ public class ProceduralLevel : MonoBehaviour
             {
                 spawnedObjects[i].SetActive(false);
                 spawnedObjects.RemoveAt(i);
-                /*
-                Destroy(spawnedObjects[i]);
-                spawnedObjects.RemoveAt(i);
-                */
             }
         }
+        if (spawnedCollectibles.Count > 0)
+        {
+            for (int i = spawnedCollectibles.Count - 1; i >= 0; i--)
+            {
+                if (spawnedCollectibles[i] != null)
+                {
+                    Destroy(spawnedCollectibles[i]);
+                }
+                spawnedCollectibles.RemoveAt(i);
+            }
+        }
+        List<Vector3> platformPositions = new List<Vector3>();
         UniformPoissonDiskSampler sampler = new UniformPoissonDiskSampler(xmax - xmin - offset, ymax - ymin - offset, spawnRadius);     //  Mathf.Abs(xmax - xmin), Mathf.Abs(ymax - ymin), 20);
         foreach (var sample in sampler.Samples())
         {
             Vector3 spawnPos = new Vector3(sample.x + xmin + offset/2, sample.y + ymin + offset/2, playerTransform.position.z);
-            /*
-            GameObject newObject = Instantiate(cliffObjects[Random.Range(0, cliffObjects.Length)], 
-                spawnPos,
-                Quaternion.identity);
-            newObject.transform.SetParent(transform);
-            newObject.transform.rotation = Quaternion.Euler(-90f, 0f, 0f);
-            */
+            platformPositions.Add(spawnPos);
+
             GameObject newObject = cliffObjectsPool.GetRandomObject();
             newObject.transform.position = spawnPos;
             newObject.transform.rotation = Quaternion.Euler(-90f, 0f, 0f);
@@ -118,6 +124,14 @@ public class ProceduralLevel : MonoBehaviour
             newObject.SetActive(true);
             spawnedObjects.Add(newObject);
         }
+
+        if (Random.Range(0f, 1f) > 0.7)
+        {
+            // slightly above platform spawned
+            Vector3 spawnPos = platformPositions[0] + Vector3.up * 5;
+            GameObject collectible = Instantiate(platformCollectible, spawnPos, Quaternion.Euler(-90, 0, 0), transform);
+            spawnedCollectibles.Add(collectible);
+        }
     }
 
     void Update()
@@ -126,10 +140,11 @@ public class ProceduralLevel : MonoBehaviour
         {
             float xPos = Random.Range(0, 2) == 1 ? leftBoundTransform.position.x : rightBoundTransform.position.x;
             float yPos = Random.Range(lowerBoundTransform.position.y, upperBoundTransform.position.y);
-            float zPos = -20;
+            float zPos = -10;
             Vector3 spawnPt = new Vector3(xPos, yPos, zPos);
-            GameObject gull = seagullPool.GetAvailableObject(); 
+            GameObject gull = seagullPool.GetAvailableObject();
             // Instantiate(seagull, spawnPt, Quaternion.Euler(0,180,0), transform);
+            gull.transform.parent = gameObject.transform;
             gull.transform.position = spawnPt;
             gull.transform.rotation = Quaternion.Euler(0, 180, 0);
             if (xPos == leftBoundTransform.position.x)
@@ -137,7 +152,7 @@ public class ProceduralLevel : MonoBehaviour
                 gull.GetComponent<SeagullBehavior>().goingRight = true;
             }
             gull.SetActive(true);
-            seagullRandomSpawnTime = Random.Range(5f, 10f);
+            seagullRandomSpawnTime = Random.Range(1f, 10f);
             lastSpawnTime = Time.unscaledTime;
         }
     }

@@ -13,8 +13,6 @@ public class PlatformController : MonoBehaviour
 
     private void Start()
     {
-        // avoid clipping
-        GetComponent<MeshRenderer>().materials[0].renderQueue = 3001;
         spawnedBeforeGame = !PlayerBounding.instance.boundIsActive;
         PlayerBounding.instance.SwitchedActiveTile.AddListener(SwitchTileHandler);
         PlayerBounding.instance.FirstUpwardShift.AddListener(FirstShiftHandler);
@@ -67,17 +65,12 @@ public class PlatformController : MonoBehaviour
             currentTile = PlayerBounding.instance.activeTile;
         }
         float timer = 0;
-        float finishTime = 5;
+        float finishTime = 15;
         Material[] materials = GetComponent<MeshRenderer>().materials;
         Color curColor;
+        bool firstPass = true;
         while (timer < finishTime)
         {
-            for (int i = 0; i < materials.Length; i++)
-            {
-                curColor = materials[i].color;
-                curColor.a = Mathf.Lerp(1, 0, timer / finishTime);
-                materials[i].color = curColor;
-            }
             timer += Time.deltaTime;
             transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z + PlatformSpawner.instance.platformSpeed * Time.deltaTime);
             yield return null;

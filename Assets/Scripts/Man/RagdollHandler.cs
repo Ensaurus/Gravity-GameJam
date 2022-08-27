@@ -47,6 +47,21 @@ public class RagdollHandler : MonoBehaviour
         //EnableRagdoll();
     }
 
+    public void LaunchDown()
+    {
+        Rigidbody rb = GetComponent<Rigidbody>();
+        rb.velocity = Vector3.zero;
+        // rb.AddForce(new Vector3(0, -3, 0) * initialForceStrength, ForceMode.Impulse);
+        EnableRagdoll();
+        // StartCoroutine(EnableAfterSec());
+    }
+
+    IEnumerator EnableAfterSec()
+    {
+        yield return new WaitForSeconds(0.5f);
+        EnableRagdoll();
+    }
+
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.tag == "RagdollEnabler")
@@ -119,7 +134,10 @@ public class RagdollHandler : MonoBehaviour
     {
         foreach (var joint in allJoints)
         {
-            joint.breakForce = 0;
+            if (joint != null)
+            {
+                joint.breakForce = 0;
+            }
         }
         
         foreach (var rb in allRigidBodies)
