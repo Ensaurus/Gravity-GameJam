@@ -98,6 +98,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca4af937876dd4f149b1b3f8993cc839, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fadeMaterials:
+  - {fileID: 2100000, guid: 3aec0aa74e50b5f41a88bea66a7cd177, type: 2}
+  - {fileID: 2100000, guid: ed86f515bbc3f70418078f893eba88f1, type: 2}
 --- !u!64 &-2291204079122474126
 MeshCollider:
   m_ObjectHideFlags: 0

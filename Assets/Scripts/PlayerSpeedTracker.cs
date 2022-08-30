@@ -83,6 +83,7 @@ public class PlayerSpeedTracker : MonoBehaviour
         loggedDepthTravelled += lengthOfTile;
     }
 
+    /*
     void OnCollisionEnter(Collision collision){
         if(reachedCriticalVelocity){
             explosionSystem.Play();
@@ -90,6 +91,7 @@ public class PlayerSpeedTracker : MonoBehaviour
             gameOverEvent.Invoke();
         }
     }
+    */
 
     private void OnGameOver()
     {

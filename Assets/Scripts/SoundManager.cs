@@ -2,12 +2,14 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class SoundManager : MonoBehaviour
 {
     public static SoundManager instance { get; private set; }
     
     private AudioSource[] _sources;
+    private List<AudioSource> _collisionSources = new List<AudioSource>();
     public AudioClip windSound;
     public AudioClip fireSound;
     public AudioClip fireStartSound;
@@ -48,6 +50,19 @@ public class SoundManager : MonoBehaviour
         _sources[0].Play();
         _sources[1].clip = fireSound;
         _sources[1].loop = true;
+
+        foreach (AudioClip collisionSound in collisionSounds)
+        {
+            AudioSource source = gameObject.AddComponent<AudioSource>();
+            source.clip = collisionSound;
+            _collisionSources.Add(source);
+        }
+    }
+
+    public void PlayCollisionSound()
+    {
+        int index = Random.Range(0, _collisionSources.Count);
+        _collisionSources[index].Play();
     }
 
     public void Explode()

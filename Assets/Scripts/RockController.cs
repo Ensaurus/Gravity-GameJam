@@ -4,6 +4,7 @@ using UnityEngine;
 public class RockController : MonoBehaviour
 {
     Coroutine activeCoroutine;
+    public Material[] fadeMaterials;
     /*
     private void Start()
     {
@@ -11,6 +12,7 @@ public class RockController : MonoBehaviour
         GetComponent<MeshRenderer>().materials[0].renderQueue = 3001;
     }
     */
+
 
     private void OnEnable()
     {
@@ -37,12 +39,15 @@ public class RockController : MonoBehaviour
     {
         float timer = 0;
         float finishTime = 5;
+        GetComponent<MeshRenderer>().materials = fadeMaterials;
         Material[] materials = GetComponent<MeshRenderer>().materials;
+        /*(
         foreach (Material material in materials)
-        {
+        {            
             // fade
             MaterialExtensions.ToFadeMode(material);
         }
+        */
         Color curColor;
         while (timer < finishTime)
         {
