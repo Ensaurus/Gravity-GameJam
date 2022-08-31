@@ -15,7 +15,15 @@ public class SoundManager : MonoBehaviour
     public AudioClip fireStartSound;
     public AudioClip explosionSound;
     public AudioClip[] collisionSounds;
+
+    public AudioClip bonkSound;
+    public AudioClip boneCrackSound;
+    private AudioSource bonkSource;
+    private AudioSource boneCrackSource;
+
     public Rigidbody personRigidbody;
+
+    private bool crackCountdown = false;
 
     public float maxWindVolume = 0.7f;
     public float fireVolume = 0.7f;
@@ -57,12 +65,40 @@ public class SoundManager : MonoBehaviour
             source.clip = collisionSound;
             _collisionSources.Add(source);
         }
+
+        boneCrackSource = gameObject.AddComponent<AudioSource>();
+        boneCrackSource.clip = boneCrackSound;
+
+        bonkSource = gameObject.AddComponent<AudioSource>();
+        bonkSource.clip = bonkSound;
     }
 
     public void PlayCollisionSound()
     {
         int index = Random.Range(0, _collisionSources.Count);
         _collisionSources[index].Play();
+    }
+
+    public void PlayBoneCrack()
+    {
+        if (!crackCountdown)
+        {
+            boneCrackSource.Play();
+            // StartCoroutine(CountDown());
+        }
+    }
+
+    IEnumerator CountDown()
+    {
+        crackCountdown = true;
+        yield return new WaitForSeconds(1);
+        crackCountdown = false;
+    }
+
+    public void PlayBonk()
+    {
+        if (!bonkSource.isPlaying)
+            bonkSource.Play();
     }
 
     public void Explode()

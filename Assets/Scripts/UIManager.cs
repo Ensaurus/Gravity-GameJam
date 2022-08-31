@@ -142,7 +142,6 @@ public class UIManager : MonoBehaviour
     {
         if (currentNudges > 0)
         {
-            Debug.Log("Nudge used.");
             currentNudges -= 1;
             nudgeUI.transform.localScale = originalNudgeScale;
             StopAllCoroutines();

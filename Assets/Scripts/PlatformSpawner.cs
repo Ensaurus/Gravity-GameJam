@@ -43,7 +43,7 @@ public class PlatformSpawner : MonoBehaviour
     {
         float lowerBound = PlayerBounding.instance.lowerBoundTransform.position.y;
         float spawnY = playerTransform.position.y - spawnDistance;
-        if (spawnY < lowerBound)
+        if (spawnY < lowerBound + PlayerBounding.instance.spawnBuffer)
         {
             float upperBound = PlayerBounding.instance.upperBoundTransform.position.y - PlayerBounding.instance.spawnBuffer;
             float extraLength = lowerBound - spawnY;

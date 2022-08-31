@@ -58,7 +58,7 @@ public class PlatformController : MonoBehaviour
 
     IEnumerator MoveAway()
     {
-        if (PlayerBounding.instance.boundIsActive)
+        if (PlayerBounding.instance.boundIsActive && !spawnedBeforeGame)
         {
             // attach self to active tile
             transform.SetParent(PlayerBounding.instance.activeTile.transform);
@@ -67,8 +67,6 @@ public class PlatformController : MonoBehaviour
         float timer = 0;
         float finishTime = 15;
         Material[] materials = GetComponent<MeshRenderer>().materials;
-        Color curColor;
-        bool firstPass = true;
         while (timer < finishTime)
         {
             timer += Time.deltaTime;

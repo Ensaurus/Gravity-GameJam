@@ -11,7 +11,6 @@ public class ProceduralLevel : MonoBehaviour
     private ObjectPool seagullPool;
     private List<GameObject> spawnedObjects = new List<GameObject>();
     private List<GameObject> spawnedCollectibles = new List<GameObject>();
-    private float playerStartYPos = 0.0f;
     private float lastSpawnTime = 0f;
     private float seagullRandomSpawnTime;
 
