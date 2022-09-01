@@ -58,7 +58,7 @@ public class PlatformController : MonoBehaviour
 
     IEnumerator MoveAway()
     {
-        if (PlayerBounding.instance.boundIsActive && !spawnedBeforeGame)
+        if (PlayerBounding.instance.boundIsActive)
         {
             // attach self to active tile
             transform.SetParent(PlayerBounding.instance.activeTile.transform);
