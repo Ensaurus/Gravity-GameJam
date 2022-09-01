@@ -58,12 +58,11 @@ public class PlatformController : MonoBehaviour
 
     IEnumerator MoveAway()
     {
-        if (PlayerBounding.instance.boundIsActive)
-        {
-            // attach self to active tile
-            transform.SetParent(PlayerBounding.instance.activeTile.transform);
-            currentTile = PlayerBounding.instance.activeTile;
-        }
+
+        // attach self to active tile
+        transform.SetParent(PlayerBounding.instance.activeTile.transform);
+        currentTile = PlayerBounding.instance.activeTile;
+    
         float timer = 0;
         float finishTime = 15;
         Material[] materials = GetComponent<MeshRenderer>().materials;
