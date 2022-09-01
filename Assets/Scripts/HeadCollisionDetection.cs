@@ -6,6 +6,7 @@ public class HeadCollisionDetection : MonoBehaviour
 {
     void OnCollisionEnter(Collision collision)
     {
-        SoundManager.instance.PlayBonk();
+        if (collision.gameObject.layer != LayerMask.NameToLayer("Editor"))
+            SoundManager.instance.PlayBonk();
     }
 }

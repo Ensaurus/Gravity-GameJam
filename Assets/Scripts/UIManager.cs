@@ -76,13 +76,10 @@ public class UIManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (gameRunning)
-        {
-            SetSpeedometerSize();
-            SetNeedleRotation();
-            GetCurrentNudgeFill();
-            score.text = PlayerSpeedTracker.instance.DepthTravelled.ToString("F0");
-        }
+        SetSpeedometerSize();
+        SetNeedleRotation();
+        GetCurrentNudgeFill();
+        score.text = PlayerSpeedTracker.instance.DepthTravelled.ToString("F0");
     }
 
     private void SetSpeedometerSize()
@@ -126,7 +123,8 @@ public class UIManager : MonoBehaviour
                 currentNudges += 1;
                 fillAmountNudgeBar = 0;
                 currentNudgeTime = 0;
-                StartCoroutine(HighlightUI(nudgeUI, 2));
+                if (gameRunning)
+                    StartCoroutine(HighlightUI(nudgeUI, 2));
             }
             nudgeMask.fillAmount = fillAmountNudgeBar;
         }

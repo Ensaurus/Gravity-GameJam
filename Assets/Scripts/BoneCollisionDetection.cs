@@ -13,7 +13,12 @@ public class BoneCollisionDetection : MonoBehaviour
     }
     void OnCollisionEnter(Collision collision)
     {
-        if (myJoint.currentForce.magnitude > crackForce)
-            SoundManager.instance.PlayBoneCrack();
+        if (myJoint != null && myJoint.currentForce.magnitude > crackForce)
+        {
+            if (collision.gameObject.layer != LayerMask.NameToLayer("Editor"))
+            {
+                SoundManager.instance.PlayBoneCrack();
+            }
+        }
     }
 }

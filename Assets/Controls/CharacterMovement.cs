@@ -4,8 +4,6 @@ public class CharacterMovement : MonoBehaviour
 {
 
     Animator _animator;
-
-    private int _moveDirection = 0;
     public bool isMoving { get; private set; }
 
     // Start is called before the first frame update

@@ -12,6 +12,9 @@ public class PlayerCollisionDetection : MonoBehaviour
             SoundManager.instance.Explode();
             PlayerSpeedTracker.instance.gameOverEvent.Invoke();
         }
-        SoundManager.instance.PlayCollisionSound();
+        if (collision.gameObject.layer != LayerMask.NameToLayer("Editor"))
+        {
+            SoundManager.instance.PlayCollisionSound();
+        }
     }
 }

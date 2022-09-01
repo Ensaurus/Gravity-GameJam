@@ -23,8 +23,6 @@ public class SoundManager : MonoBehaviour
 
     public Rigidbody personRigidbody;
 
-    private bool crackCountdown = false;
-
     public float maxWindVolume = 0.7f;
     public float fireVolume = 0.7f;
     public float explosionVolume = 0.5f;
@@ -81,23 +79,12 @@ public class SoundManager : MonoBehaviour
 
     public void PlayBoneCrack()
     {
-        if (!crackCountdown)
-        {
-            boneCrackSource.Play();
-            // StartCoroutine(CountDown());
-        }
-    }
-
-    IEnumerator CountDown()
-    {
-        crackCountdown = true;
-        yield return new WaitForSeconds(1);
-        crackCountdown = false;
+        boneCrackSource.Play();
     }
 
     public void PlayBonk()
     {
-        if (!bonkSource.isPlaying)
+        // if (!bonkSource.isPlaying)
             bonkSource.Play();
     }
 
