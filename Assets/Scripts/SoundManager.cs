@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
 public class SoundManager : MonoBehaviour
@@ -27,6 +28,12 @@ public class SoundManager : MonoBehaviour
     public float fireVolume = 0.7f;
     public float explosionVolume = 0.5f;
 
+    private float maxVol = 1;
+
+    public Scrollbar slider;
+
+    private bool initialized = false;
+
     private void Awake()
     {
         if (instance != null && instance != this) 
@@ -36,6 +43,10 @@ public class SoundManager : MonoBehaviour
         else 
         { 
             instance = this; 
+        }
+        if (!FindObjectOfType<PersistentData>())
+        {
+            Instantiate(new GameObject()).AddComponent<PersistentData>();
         }
     }
 
@@ -69,12 +80,18 @@ public class SoundManager : MonoBehaviour
 
         bonkSource = gameObject.AddComponent<AudioSource>();
         bonkSource.clip = bonkSound;
+        ChangeMaxVolume(PersistentData.instance.gameVolume);
+        slider.value = maxVol;
+        initialized = true;
     }
 
     public void PlayCollisionSound()
     {
-        int index = Random.Range(0, _collisionSources.Count);
-        _collisionSources[index].Play();
+        if (initialized)
+        {
+            int index = Random.Range(0, _collisionSources.Count);
+            _collisionSources[index].Play();
+        }
     }
 
     public void PlayBoneCrack()
@@ -93,7 +110,7 @@ public class SoundManager : MonoBehaviour
         _sources[0].Stop();
         _sources[1].Stop();
         _sources[2].clip = explosionSound;
-        _sources[2].volume = explosionVolume;
+        _sources[2].volume = explosionVolume * maxVol;
         _sources[2].Play();
     }
     
@@ -105,7 +122,7 @@ public class SoundManager : MonoBehaviour
             _sources[2].Play();
         }
         if (!_sources[1].isPlaying)
-            _sources[1].volume = fireVolume;
+            _sources[1].volume = fireVolume * maxVol;
             _sources[1].Play();
     }
 
@@ -119,6 +136,16 @@ public class SoundManager : MonoBehaviour
     void Update()
     {
         float velocity = Mathf.Abs(personRigidbody.velocity.y);
-        _sources[0].volume = Mathf.Lerp(0, maxWindVolume, velocity / PlayerSpeedTracker.instance.criticalVelocity);
+        _sources[0].volume = Mathf.Lerp(0, maxWindVolume * maxVol, velocity / PlayerSpeedTracker.instance.criticalVelocity);
+    }
+
+    public void ChangeMaxVolume(float newMax)
+    {
+            maxVol = newMax;
+            PersistentData.instance.gameVolume = maxVol;
+            foreach (AudioSource source in GetComponents<AudioSource>())
+            {
+                source.volume = maxVol;
+            }
     }
 }

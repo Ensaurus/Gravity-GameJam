@@ -18,6 +18,7 @@ public class SeagullBehavior : MonoBehaviour
     private void OnEnable()
     {
         state = 0;
+        GetComponent<AudioSource>().volume = PersistentData.instance.gameVolume;
     }
 
     // Update is called once per frame

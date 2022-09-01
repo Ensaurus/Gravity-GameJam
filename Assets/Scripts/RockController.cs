@@ -5,6 +5,7 @@ public class RockController : MonoBehaviour
 {
     Coroutine activeCoroutine;
     public Material[] fadeMaterials;
+    public Material[] opaqueMaterials;
     /*
     private void Start()
     {
@@ -17,7 +18,9 @@ public class RockController : MonoBehaviour
     private void OnEnable()
     {
         activeCoroutine = null;
-        Material[] materials = GetComponent<MeshRenderer>().materials;
+        // Material[] materials = GetComponent<MeshRenderer>().materials;
+        GetComponent<MeshRenderer>().materials = opaqueMaterials;
+        /*
         for (int i = 0; i < materials.Length; i++)
         {
             Color curColor = materials[i].color;
@@ -25,6 +28,7 @@ public class RockController : MonoBehaviour
             materials[i].color = curColor;
             MaterialExtensions.ToOpaqueMode(materials[i]);
         }
+        */
     }
 
     private void OnCollisionEnter(Collision collision)

@@ -142,7 +142,7 @@ public class IntroManager : MonoBehaviour
         introTutorialText.text = "Note you can only nudge up every once in a while.";
         yield return StartCoroutine(UIManager.instance.HighlightUI(nudgeUI, 5));
 
-        introTutorialText.text = "Also, while falling, use spacebar to smack yourself into a platform like this.";
+        introTutorialText.text = "Also, while falling, use spacebar to smack yourself into a platform like this one.";
         yield return StartCoroutine(UIManager.instance.HighlightUI(platformUI, 5));
 
         introTutorialText.text = "Try not to go too fast...";

@@ -101,6 +101,9 @@ MonoBehaviour:
   fadeMaterials:
   - {fileID: 2100000, guid: 3aec0aa74e50b5f41a88bea66a7cd177, type: 2}
   - {fileID: 2100000, guid: ed86f515bbc3f70418078f893eba88f1, type: 2}
+  opaqueMaterials:
+  - {fileID: 2100000, guid: b54513051c4811b4497f7d70d770b553, type: 2}
+  - {fileID: 2100000, guid: 94f7d14ab7960f342afa6b1325245afc, type: 2}
 --- !u!64 &-2291204079122474126
 MeshCollider:
   m_ObjectHideFlags: 0

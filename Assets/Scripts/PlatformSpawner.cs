@@ -6,7 +6,7 @@ using UnityEngine;
 public class PlatformSpawner : MonoBehaviour
 {
     public static PlatformSpawner instance { get; private set; }
-    public GameObject platform;
+    // public GameObject platform;
     // Note this should be in reference to the ragdoll, not the regular. 
     public Transform playerTransform;
     public float spawnDistance;
@@ -16,6 +16,8 @@ public class PlatformSpawner : MonoBehaviour
     public TextMeshProUGUI remainingPlatformsCounter;
     private Color originalCol;
     private Vector3 originalSize;
+
+    public ObjectPool platformPool;
 
     private void Awake()
     {
@@ -45,12 +47,17 @@ public class PlatformSpawner : MonoBehaviour
         float spawnY = playerTransform.position.y - spawnDistance;
         if (spawnY < lowerBound + PlayerBounding.instance.spawnBuffer)
         {
-            float upperBound = PlayerBounding.instance.upperBoundTransform.position.y - PlayerBounding.instance.spawnBuffer;
+            // 5 more to be safe
+            float upperBound = PlayerBounding.instance.upperBoundTransform.position.y - PlayerBounding.instance.spawnBuffer - 5;
             float extraLength = lowerBound - spawnY;
             spawnY = upperBound - extraLength;
         }
         // just using upperBound Transform x as midpoint of tile
-        Instantiate(platform, new Vector3(PlayerBounding.instance.upperBoundTransform.position.x, spawnY, playerTransform.position.z), Quaternion.Euler(-90, 0, 0));
+        // Instantiate(platform, new Vector3(PlayerBounding.instance.upperBoundTransform.position.x, spawnY, playerTransform.position.z), Quaternion.Euler(-90, 0, 0));
+        GameObject platform = platformPool.GetAvailableObject();
+        platform.transform.position = new Vector3(PlayerBounding.instance.upperBoundTransform.position.x, spawnY, playerTransform.position.z);
+        platform.transform.localRotation = Quaternion.Euler(-90, 0, 0);
+        platform.SetActive(true);
     }
 
     public void AddPlatformToAvailable()

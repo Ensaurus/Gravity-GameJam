@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -8,6 +9,7 @@ public class PlayerBounding : MonoBehaviour
     public UnityEvent<GameObject> SwitchedActiveTile;
     public UnityEvent ReachedBottomBound;
     public UnityEvent PlayerEnteredBound;
+    public UnityEvent ReachedUpperBound;
     public UnityEvent FirstUpwardShift;
     private bool hasShiftedUp;
 
@@ -39,6 +41,8 @@ public class PlayerBounding : MonoBehaviour
 
     public bool boundIsActive;
 
+    private bool fullyImmersed = false;
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -61,7 +65,17 @@ public class PlayerBounding : MonoBehaviour
         {
             boundIsActive = true;
             PlayerEnteredBound.Invoke();
+            StartCoroutine(WaitToBeIn());
         }
+    }
+
+    IEnumerator WaitToBeIn()
+    {
+        while (playerTransform.position.y > upperBound - spawnBuffer)
+        {
+            yield return null;
+        }
+        fullyImmersed = true;
     }
 
     void FixedUpdate()
@@ -73,13 +87,11 @@ public class PlayerBounding : MonoBehaviour
                 playerTransform.position = new Vector3(playerTransform.position.x, upperBound - spawnBuffer, playerTransform.position.z);
                 ShiftUp();
             }
-            /*
-            else if (playerTransform.position.y > upperBound)
+            else if (playerTransform.position.y > upperBound && fullyImmersed)
             {
                 playerTransform.position = new Vector3(playerTransform.position.x, lowerBound + spawnBuffer, playerTransform.position.z);
                 ShiftDown();
             }
-            */
             if (playerTransform.position.x < leftBound)
             {
                 playerTransform.position = new Vector3(rightBound - spawnBuffer, playerTransform.position.y, playerTransform.position.z);
@@ -122,6 +134,7 @@ public class PlayerBounding : MonoBehaviour
         SwitchedActiveTile.Invoke(upperLeftTile);
         SwitchedActiveTile.Invoke(upperTile);
         SwitchedActiveTile.Invoke(upperRightTile);
+        ReachedUpperBound.Invoke();
     }
 
     private void ShiftLeft()

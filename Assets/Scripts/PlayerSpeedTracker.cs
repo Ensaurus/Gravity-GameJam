@@ -43,6 +43,7 @@ public class PlayerSpeedTracker : MonoBehaviour
     {
         PlayerBounding.instance.PlayerEnteredBound.AddListener(StartTracking);
         PlayerBounding.instance.ReachedBottomBound.AddListener(UpdateLoggedDepth);
+        PlayerBounding.instance.ReachedUpperBound.AddListener(OnBacktrack);
         gameOverEvent.AddListener(OnGameOver);
         lengthOfTile = Vector3.Distance(PlayerBounding.instance.upperBoundTransform.position, PlayerBounding.instance.lowerBoundTransform.position);
         reachedCriticalVelocity = false;
@@ -81,6 +82,11 @@ public class PlayerSpeedTracker : MonoBehaviour
     private void UpdateLoggedDepth()
     {
         loggedDepthTravelled += lengthOfTile;
+    }
+
+    private void OnBacktrack()
+    {
+        loggedDepthTravelled -= lengthOfTile;
     }
 
     /*

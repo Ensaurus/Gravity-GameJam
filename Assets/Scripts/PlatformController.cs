@@ -15,9 +15,9 @@ public class PlatformController : MonoBehaviour
     {
         spawnedBeforeGame = !PlayerBounding.instance.boundIsActive;
         PlayerBounding.instance.SwitchedActiveTile.AddListener(SwitchTileHandler);
-        PlayerBounding.instance.FirstUpwardShift.AddListener(FirstShiftHandler);
+        //PlayerBounding.instance.FirstUpwardShift.AddListener(FirstShiftHandler);
     }
-
+    /*
     private void FirstShiftHandler()
     {
         if (spawnedBeforeGame)
@@ -25,12 +25,22 @@ public class PlatformController : MonoBehaviour
             Destroy(gameObject);
         }
     }
+    */
+
+    private void OnEnable()
+    {
+        transform.parent = null;
+        activeCoroutine = null;
+        spawnedBeforeGame = false;
+        currentTile = null;
+    }
 
     private void SwitchTileHandler(GameObject tile)
     {
         if (currentTile && tile == currentTile)
         {
-            Destroy(gameObject);
+            gameObject.SetActive(false);
+            // Destroy(gameObject);
         }
     }
 
@@ -61,7 +71,7 @@ public class PlatformController : MonoBehaviour
 
         // attach self to active tile
         transform.SetParent(PlayerBounding.instance.activeTile.transform);
-        currentTile = PlayerBounding.instance.activeTile;
+        currentTile = transform.parent.gameObject;
     
         float timer = 0;
         float finishTime = 15;
@@ -72,6 +82,7 @@ public class PlatformController : MonoBehaviour
             transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z + PlatformSpawner.instance.platformSpeed * Time.deltaTime);
             yield return null;
         }
-        Destroy(gameObject);
+        gameObject.SetActive(false);
+        // Destroy(gameObject);
     }
 }
